@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>cxReader</artifactId>
-        <groupId>org.beefochu.dyndns.cxreader</groupId>
+        <groupId>org.dyndns.beefochu.cxreader</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

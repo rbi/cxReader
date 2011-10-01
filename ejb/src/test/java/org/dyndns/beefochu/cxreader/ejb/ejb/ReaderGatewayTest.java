@@ -1,12 +1,13 @@
-package org.beefochu.dyndns.cxreader.ejb.ejb;
+package org.dyndns.beefochu.cxreader.ejb.ejb;
 
+import org.dyndns.beefochu.cxreader.ejb.ejb.ReaderGateway;
 import java.util.LinkedList;
 import org.mockito.InOrder;
 import java.security.Principal;
 import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import org.beefochu.dyndns.cxreader.ejb.domain.ReaderUser;
+import org.dyndns.beefochu.cxreader.ejb.domain.ReaderUser;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
@@ -36,7 +37,7 @@ public class ReaderGatewayTest {
     }
 
     @Test
-    public void testGetFeedList() throws Exception {
+    public void testGetFeedList() {
         gateway.getFeedList();
         
         InOrder inOrder = inOrder(this.gateway.ctx, this.prinicpal, this.userQuery, this.gateway.em);

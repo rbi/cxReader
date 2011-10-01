@@ -1,4 +1,4 @@
-package org.beefochu.dyndns.cxreader.ejb.util;
+package org.dyndns.beefochu.cxreader.ejb.util;
 
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -9,23 +9,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateful
-@TransactionAttribute(TransactionAttributeType.NEVER)
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ThreadLocalEntityManager {
  
     @PersistenceContext
     private EntityManager entityManager;
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void commitTransaction() {
-    
-    }
-    
     public static EntityManager em() {
         return lookUp().entityManager;
-    }
-    
-    public static void save() {
-        lookUp().commitTransaction();
     }
         
     private static ThreadLocalEntityManager lookUp() {

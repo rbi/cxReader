@@ -1,4 +1,4 @@
-package org.beefochu.dyndns.cxreader.ejb.domain;
+package org.dyndns.beefochu.cxreader.ejb.domain;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

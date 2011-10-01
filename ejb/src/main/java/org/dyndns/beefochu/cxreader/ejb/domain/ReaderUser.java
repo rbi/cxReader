@@ -1,7 +1,8 @@
-package org.beefochu.dyndns.cxreader.ejb.domain;
+package org.dyndns.beefochu.cxreader.ejb.domain;
 
-import org.beefochu.dyndns.cxreader.ejb.exceptions.FeedAlreadyInListException;
-import org.beefochu.dyndns.cxreader.ejb.exceptions.FeedUrlInvalidException;
+import javax.persistence.TypedQuery;
+import org.dyndns.beefochu.cxreader.ejb.exceptions.FeedAlreadyInListException;
+import org.dyndns.beefochu.cxreader.ejb.exceptions.FeedUrlInvalidException;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,12 +16,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import org.beefochu.dyndns.cxreader.ejb.Reader;
-import static org.beefochu.dyndns.cxreader.ejb.util.ThreadLocalEntityManager.*;
+import static org.dyndns.beefochu.cxreader.ejb.util.ThreadLocalEntityManager.*;
 
 @Entity
 @NamedQuery(name = ReaderUser.FIND_BY_NAME, query = "Select e from ReaderUser e where e.name = :username")
-public class ReaderUser implements Reader, Serializable {
+public class ReaderUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final String FIND_BY_NAME = "findReaderUserByName";
@@ -43,7 +43,6 @@ public class ReaderUser implements Reader, Serializable {
     /**
      * Returns a read only list with all feeds of the user.
      */
-    @Override
     public List<Feed> getFeedList() {
         return Collections.unmodifiableList(feeds);
     }
@@ -61,13 +60,23 @@ public class ReaderUser implements Reader, Serializable {
            if(feed.getUrl().equals(feedUrl))
                throw new FeedAlreadyInListException();
         
-        //Search FeedCommon
-        //Create FeedCommon if not found
-        //Add Feed with FeedCommon instance
-        //Persist Feed
-        //Save
-        //Return Feed
-        return null;
+        FeedCommon feedCommon;
+        
+        TypedQuery<FeedCommon> feedQuery = em().createNamedQuery(FeedCommon.FIND_BY_URL, FeedCommon.class);
+        feedQuery.setParameter("url", feedUrl);
+        List<FeedCommon> feeds = feedQuery.getResultList();
+        
+        if(!feeds.isEmpty())
+            feedCommon = feeds.get(0);
+        else
+            feedCommon = new FeedCommon(feedUrl);
+        
+        em().persist(feedCommon);
+        Feed feed = new Feed(this, feedCommon);
+        
+        em().persist(feed);
+        
+        return feed;
     }
 
     /**

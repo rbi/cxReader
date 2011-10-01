@@ -1,29 +1,30 @@
-package org.beefochu.dyndns.cxreader.ejb.ejb;
+package org.dyndns.beefochu.cxreader.ejb.ejb;
 
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.Local;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
-import org.beefochu.dyndns.cxreader.ejb.Reader;
-import org.beefochu.dyndns.cxreader.ejb.domain.Feed;
-import org.beefochu.dyndns.cxreader.ejb.domain.ReaderUser;
+import org.dyndns.beefochu.cxreader.ejb.Reader;
+import org.dyndns.beefochu.cxreader.ejb.domain.Feed;
+import org.dyndns.beefochu.cxreader.ejb.domain.ReaderUser;
 
 @Stateful
 @Local(Reader.class)
-@TransactionAttribute(TransactionAttributeType.NEVER)
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class ReaderGateway implements Reader {
 
-    @PersistenceContext
+    @PersistenceContext(type=PersistenceContextType.EXTENDED)
     EntityManager em;
-    @Inject
+    @Resource
     SessionContext ctx;
-
+    
     @Override
     public List<Feed> getFeedList() {
         String username = ctx.getCallerPrincipal().getName();
@@ -42,5 +43,11 @@ public class ReaderGateway implements Reader {
         ReaderUser newUser = new ReaderUser(username);
         em.persist(newUser);
         return newUser;
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void save() {
+        //all work is done by the annotation
     }
 }

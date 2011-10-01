@@ -1,3 +1,7 @@
 /ear/target/
 /ejb/target/
 /web/target/
+misc/
+nbactions.xml
+catalog.xml
+derby.log

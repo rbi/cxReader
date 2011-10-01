@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.beefochu.dyndns.cxreader</groupId>
+    <groupId>org.dyndns.beefochu.cxreader</groupId>
     <artifactId>cxReader</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -11,6 +11,20 @@
         <module>web</module>
         <module>ejb</module>
     </modules>
+    
+    <repositories>
+        <repository>
+            <id>embedded-glassfish</id>
+            <name>Embedded Glassfish Maven Repository</name>
+            <url>http://download.java.net/maven/glassfish</url>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <name>JBoss Maven Repository for Arquillian</name>             
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -29,6 +43,35 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.8.2</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.9.0-rc1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.junit</groupId>
+                <artifactId>arquillian-junit-container</artifactId> <!-- s/-container/-core/ or s/-container/-standalone/  -->
+                <version>1.0.0.Final-SNAPSHOT</version>
+            </dependency>
+            <!-- <dependency>
+                <groupId>org.jboss.arquillian.junit</groupId>
+                <artifactId>arquillian-junit-container</artifactId>
+                <version>1.0.0.Alpha4</version>
+                <scope>test</scope>
+            </dependency>-->
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+                <version>1.0.0.Final-SNAPSHOT</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.extras</groupId>
+                <artifactId>glassfish-embedded-all</artifactId>
+                <version>3.1.1</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -67,6 +110,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.7.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>

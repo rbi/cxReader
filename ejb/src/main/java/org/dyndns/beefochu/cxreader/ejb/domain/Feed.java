@@ -1,4 +1,4 @@
-package org.beefochu.dyndns.cxreader.ejb.domain;
+package org.dyndns.beefochu.cxreader.ejb.domain;
 
 import java.io.Serializable;
 import java.net.URL;
@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 @Entity
-@NamedQuery(name = Feed.FIND_FEEDS_FOR_USER, query = "Select e from UserFeedRelation e where e.user = :user")
+@NamedQuery(name = Feed.FIND_FEEDS_FOR_USER, query = "Select e from Feed e where e.user = :user")
 public class Feed implements Serializable  {
     private static final long serialVersionUID = 1L;
     public static final String FIND_FEEDS_FOR_USER = "findFeedsForUser";
@@ -36,6 +36,14 @@ public class Feed implements Serializable  {
     
     private String feedName;
     
+    protected Feed() {
+    
+    }
+    
+    public Feed(ReaderUser user, FeedCommon feed) {
+        this.user = user;
+        this.feed = feed;
+    }
     
     public Iterator<List<FeedEntryCommon>> getUnreadEntries() {
         throw new UnsupportedOperationException("Not supported yet.");
