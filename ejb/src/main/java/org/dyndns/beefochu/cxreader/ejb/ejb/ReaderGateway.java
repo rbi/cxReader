@@ -2,6 +2,8 @@ package org.dyndns.beefochu.cxreader.ejb.ejb;
 
 import java.util.List;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
@@ -14,10 +16,13 @@ import javax.persistence.TypedQuery;
 import org.dyndns.beefochu.cxreader.ejb.Reader;
 import org.dyndns.beefochu.cxreader.ejb.domain.Feed;
 import org.dyndns.beefochu.cxreader.ejb.domain.ReaderUser;
+import org.dyndns.beefochu.cxreader.ejb.util.Roles;
 
 @Stateful
 @Local(Reader.class)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+@DeclareRoles(Roles.USER)
+@RolesAllowed(Roles.USER)
 public class ReaderGateway implements Reader {
 
     @PersistenceContext(type=PersistenceContextType.EXTENDED)

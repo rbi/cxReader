@@ -1,11 +1,14 @@
-package org.dyndns.beefochu.cxreader.ejb.domain;
+package org.dyndns.beefochu.cxreader.ejb.ejb;
 
+import org.dyndns.beefochu.cxreader.ejb.testUtils.GlassfishLoginHelper;
+import org.dyndns.beefochu.cxreader.ejb.util.Roles;
+import org.dyndns.beefochu.cxreader.ejb.testUtils.LoginHelper;
 import javax.ejb.EJB;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import com.sun.appserv.security.ProgrammaticLogin;
 import org.dyndns.beefochu.cxreader.ejb.Reader;
 import org.jboss.arquillian.container.test.api.Deployment;
 import java.io.File;
+import javax.ejb.EJBAccessException;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.junit.Test;
@@ -15,8 +18,11 @@ import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 public class ReaderGatewayIT {
+
     @EJB
     private Reader reader;
+    //TODO get @Inject working
+    private LoginHelper loginHelper = new GlassfishLoginHelper();
 
     @Deployment
     public static JavaArchive deploy() {
@@ -29,10 +35,13 @@ public class ReaderGatewayIT {
 
     @Test
     public void testGetFeedList() {
-        char [] pw =  {'t','e','s','t'};
-        new ProgrammaticLogin().login("testuser",pw);
-        
+        loginHelper.loginUser("testUser", Roles.USER);
+
         assertTrue(reader.getFeedList().isEmpty());
-        fail("should not work if not logged in");
+    }
+
+    @Test(expected = EJBAccessException.class)
+    public void testNotLoggedIn() {
+        reader.getFeedList();
     }
 }

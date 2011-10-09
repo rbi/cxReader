@@ -53,15 +53,9 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.junit</groupId>
-                <artifactId>arquillian-junit-container</artifactId> <!-- s/-container/-core/ or s/-container/-standalone/  -->
+                <artifactId>arquillian-junit-container</artifactId>
                 <version>1.0.0.Final-SNAPSHOT</version>
             </dependency>
-            <!-- <dependency>
-                <groupId>org.jboss.arquillian.junit</groupId>
-                <artifactId>arquillian-junit-container</artifactId>
-                <version>1.0.0.Alpha4</version>
-                <scope>test</scope>
-            </dependency>-->
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
@@ -71,7 +65,7 @@
             <dependency>
                 <groupId>org.glassfish.extras</groupId>
                 <artifactId>glassfish-embedded-all</artifactId>
-                <version>3.1.1</version>
+                <version>3.0.1</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
