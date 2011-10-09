@@ -16,24 +16,17 @@ import javax.persistence.TypedQuery;
 import org.dyndns.beefochu.cxreader.ejb.Reader;
 import org.dyndns.beefochu.cxreader.ejb.domain.Feed;
 import org.dyndns.beefochu.cxreader.ejb.domain.ReaderUser;
-import org.dyndns.beefochu.cxreader.ejb.util.Roles;
 
 @Stateful
 @Local(Reader.class)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-@DeclareRoles(Roles.USER)
-@RolesAllowed(Roles.USER)
 public class ReaderGateway implements Reader {
 
     @PersistenceContext(type=PersistenceContextType.EXTENDED)
     EntityManager em;
-    @Resource
-    SessionContext ctx;
     
     @Override
-    public List<Feed> getFeedList() {
-        String username = ctx.getCallerPrincipal().getName();
-
+    public List<Feed> getFeedList(String username) {
         ReaderUser user = findOrCreateUser(username);
         return user.getFeedList();
     }

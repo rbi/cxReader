@@ -25,9 +25,7 @@ public class ReaderGatewayTest {
     public void setUp() {
         this.gateway = new ReaderGateway();
         
-        this.gateway.ctx = mock(SessionContext.class);
         this.prinicpal = mock(Principal.class);
-        when(this.gateway.ctx.getCallerPrincipal()).thenReturn(this.prinicpal);
         when(this.prinicpal.getName()).thenReturn(TESTUSER);
         
         this.gateway.em = mock(EntityManager.class);
@@ -38,13 +36,14 @@ public class ReaderGatewayTest {
 
     @Test
     public void testGetFeedList() {
-        gateway.getFeedList();
+        gateway.getFeedList(TESTUSER);
         
-        InOrder inOrder = inOrder(this.gateway.ctx, this.prinicpal, this.userQuery, this.gateway.em);
+        InOrder inOrder = inOrder(this.userQuery, this.gateway.em);
 
-        inOrder.verify(this.gateway.ctx).getCallerPrincipal();
-        inOrder.verify(this.prinicpal).getName();
+        //Check if user exits
         inOrder.verify(this.gateway.em).createNamedQuery(ReaderUser.FIND_BY_NAME, ReaderUser.class);
+        
+        //Create user if not
         inOrder.verify(this.userQuery).setParameter("username", TESTUSER);
         inOrder.verify(this.gateway.em).persist(any(ReaderUser.class));
     }

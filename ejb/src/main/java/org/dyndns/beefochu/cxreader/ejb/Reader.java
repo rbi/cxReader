@@ -8,7 +8,7 @@ public interface Reader {
     /**
      * Returns a list with all feeds of the currently logged in user.
      */
-    public List<Feed> getFeedList();
+    public List<Feed> getFeedList(String username);
     
     /**
      * Saves all changes to the database.
