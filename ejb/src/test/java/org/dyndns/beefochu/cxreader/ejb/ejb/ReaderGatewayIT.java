@@ -10,10 +10,9 @@ import javax.ejb.EJB;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.dyndns.beefochu.cxreader.ejb.Reader;
 import org.jboss.arquillian.container.test.api.Deployment;
-import java.io.File;
 import javax.transaction.UserTransaction;
+import org.dyndns.beefochu.cxreader.ejb.testutil.TestEjbJar;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -32,7 +31,7 @@ public class ReaderGatewayIT {
 
     @Deployment
     public static JavaArchive deploy() {
-        return ShrinkWrap.createFromZipFile(JavaArchive.class, new File("target/ejb-1.0-SNAPSHOT.jar"));
+        return TestEjbJar.getTestEjbJar();
     }
 
     @Test

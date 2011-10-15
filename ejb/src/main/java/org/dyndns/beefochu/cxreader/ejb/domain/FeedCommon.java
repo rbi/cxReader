@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,8 +36,8 @@ public class FeedCommon implements Serializable {
     }
     
     public FeedCommon(URL url) throws FeedUrlInvalidException {
-        //TODO init feed
         this.url = url.toString();
+        initFeed(url);
     }
     
     public String getName() {
@@ -50,8 +48,13 @@ public class FeedCommon implements Serializable {
         try {
             return new URL(url);
         } catch (MalformedURLException ex) {
-            //TODO not malformed
+            //not malformed
         }
         return null;
+    }
+
+    private void initFeed(URL url) {
+        //TODO implement me
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

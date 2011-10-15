@@ -1,11 +1,8 @@
 package org.dyndns.beefochu.cxreader.ejb.ejb;
 
+import java.net.URL;
 import java.util.List;
-import javax.annotation.Resource;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -16,6 +13,8 @@ import javax.persistence.TypedQuery;
 import org.dyndns.beefochu.cxreader.ejb.Reader;
 import org.dyndns.beefochu.cxreader.ejb.domain.Feed;
 import org.dyndns.beefochu.cxreader.ejb.domain.ReaderUser;
+import org.dyndns.beefochu.cxreader.ejb.exceptions.FeedAlreadyInListException;
+import org.dyndns.beefochu.cxreader.ejb.exceptions.FeedUrlInvalidException;
 
 @Stateful
 @Local(Reader.class)
@@ -47,5 +46,15 @@ public class ReaderGateway implements Reader {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void save() {
         //all work is done by the annotation
+    }
+
+    @Override
+    public void bookmarkFeed(String username, URL feed) throws FeedUrlInvalidException, FeedAlreadyInListException {
+        findOrCreateUser(username).addFeed(feed);
+    }
+
+    @Override
+    public void removeBookmarkedFeed(String username, Feed feed) {
+        findOrCreateUser(username).removeFeed(feed);
     }
 }
