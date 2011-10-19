@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Version;
 
 @Entity
 public class FeedEntry implements Serializable  {
@@ -15,13 +14,6 @@ public class FeedEntry implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Version
-    private long version;
     @ManyToOne
-    private Feed userFeed;
-    @ManyToOne
-    private FeedEntryCommon entry;
-    
-    private boolean unread;
-    private boolean bookmarked;
+    private Feed feed;
 }

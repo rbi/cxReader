@@ -1,59 +1,78 @@
 package org.dyndns.beefochu.cxreader.ejb.domain;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Version;
 
 @Entity
-@NamedQuery(name = Feed.FIND_FEEDS_FOR_USER, query = "Select e from Feed e where e.user = :user")
-public class Feed implements Serializable  {
+@NamedQuery(name = Feed.FIND_BY_URL, query = "Select e from Feed e where e.url = :url")
+public class Feed implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    public static final String FIND_FEEDS_FOR_USER = "findFeedsForUser";
-    
+    public static final String FIND_BY_URL = "findFeedCommonByUrl";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Version
-    private long version;
-    
-    @ManyToOne
-    private ReaderUser user;
-    @ManyToOne()
-    private FeedCommon feed;
-    @OneToMany(mappedBy="userFeed", cascade= CascadeType.ALL)
-    private List<FeedEntry> markedFeedEntries = new ArrayList<FeedEntry>();
-    
-    private String feedName;
-    
-    protected Feed() {
-    
-    }
-    
-    public Feed(ReaderUser user, FeedCommon feed) {
-        this.user = user;
-        this.feed = feed;
-    }
-    
-    public Iterator<List<FeedEntryCommon>> getUnreadEntries() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Column(unique = true, nullable = false)
+    private String url;
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
+    private List<FeedEntry> entries;
+    private String name;
+
+    public Feed() {
     }
 
-    public Iterator<List<FeedEntryCommon>> getAllEntries() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Feed(URL url) {
+        this.url = url.toString();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setUrl(URL url) {
+        this.url = url.toString();
     }
 
     public URL getUrl() {
-        return feed.getUrl();
+        try {
+            return new URL(url);
+        } catch (MalformedURLException ex) {
+            //not malformed
+        }
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Feed other = (Feed) obj;
+        if ((this.url == null) ? (other.url != null) : !this.url.equals(other.url)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.url.hashCode();
     }
 }
