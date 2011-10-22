@@ -56,6 +56,9 @@ public class Feed implements Serializable {
         return null;
     }
 
+    /**
+     * Two feeds objects are equal if they have the same url.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

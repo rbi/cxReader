@@ -1,5 +1,10 @@
 package org.dyndns.beefochu.cxreader.ejb.ejb;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.transaction.NotSupportedException;
+import org.dyndns.beefochu.cxreader.ejb.exceptions.FeedAlreadyInListException;
+import org.dyndns.beefochu.cxreader.ejb.exceptions.FeedUrlInvalidException;
 import org.junit.Ignore;
 import org.dyndns.beefochu.cxreader.ejb.domain.FeedEntryUserRelation;
 import org.dyndns.beefochu.cxreader.ejb.domain.FeedUserRelation;
@@ -22,8 +27,9 @@ import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 public class ReaderFacadeIT {
-
     private static final String TESTUSER = "testUser";
+    private String TESTFEEDURL = "http://test.tdl/test.xml";
+    
     @EJB
     private Reader reader;
     @PersistenceContext
@@ -36,31 +42,27 @@ public class ReaderFacadeIT {
         return TestEjbJar.getTestEjbJar();
     }
 
-    @Test
-    public void testCreateUserIfNotExits() throws Exception {
-        try {
-            assertTrue(getTestUser().isEmpty());
-            assertTrue(reader.getFeedList(TESTUSER).isEmpty());
-            assertEquals(1, getTestUser().size());
-        } finally {
-            utx.begin();
-            for (ReaderUser user : getTestUser()) {
-                deleteUserWithReferences(user);
-            }
-            utx.commit();
+    public void cleanUp() throws Exception {
+        utx.begin();
+        for (ReaderUser user : getTestUser()) {
+            deleteUserWithReferences(user);
         }
+        utx.commit();
     }
 
     @Test
-    @Ignore("not implemented")
-    public void testAddBookmark() {
-        fail("not implemented");
-        try {
-        } finally {
-            for (ReaderUser user : getTestUser())
-                deleteUserWithReferences(user);
-        }
-
+    public void testCreateUserIfNotExits() throws Exception {
+        assertTrue(getTestUser().isEmpty());
+        assertTrue(reader.getFeedList(TESTUSER).isEmpty());
+        assertEquals(1, getTestUser().size());
+    }
+    
+    @Test
+    public void testAddBookmarkAndGetFeedList() throws MalformedURLException, FeedUrlInvalidException, FeedAlreadyInListException {
+        assertTrue(reader.getFeedList(TESTUSER).isEmpty());
+        FeedUserRelation relation = reader.bookmarkFeed(TESTUSER, new URL(TESTFEEDURL));
+        assertEquals(relation.getFeed().getUrl(), new URL(TESTFEEDURL));
+        assertTrue(reader.getFeedList(TESTUSER).contains(relation));
     }
 
     private List<ReaderUser> getTestUser() {
@@ -75,12 +77,9 @@ public class ReaderFacadeIT {
      * even Reader and ReaderEntry entities.
      */
     private void deleteUserWithReferences(ReaderUser user) {
-        for(FeedUserRelation relation : user.getFeeds())
+        for (FeedUserRelation relation : user.getFeeds()) {
             em.remove(relation.getFeed());
+        }
         em.remove(user);
-    }
-
-    private List<FeedUserRelation> getFeedUserRelations() {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
