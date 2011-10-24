@@ -1,7 +1,7 @@
-/ear/target/
-/ejb/target/
-/web/target/
-misc/
+/misc/
 nbactions.xml
 catalog.xml
 derby.log
+/backend/target/
+/assembly/target/
+/frontend-web/target/

@@ -7,9 +7,9 @@
     <packaging>pom</packaging>
     <name>cxReader</name>
     <modules>
-        <module>ear</module>
-        <module>web</module>
-        <module>ejb</module>
+        <module>assembly</module>
+        <module>frontend-web</module>
+        <module>backend</module>
     </modules>
     
     <repositories>
@@ -29,13 +29,13 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>ejb</artifactId>
+                <artifactId>backend</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>web</artifactId>
+                <artifactId>frontend-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
             </dependency>
