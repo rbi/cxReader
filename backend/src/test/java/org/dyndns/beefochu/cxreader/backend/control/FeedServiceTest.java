@@ -20,8 +20,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.EntityManager;
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
 import org.junit.Before;
-import static org.junit.Assert.*;
 import org.mockito.InOrder;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class FeedServiceTest {
