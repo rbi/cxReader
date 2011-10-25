@@ -1,7 +1,11 @@
 package org.dyndns.beefochu.cxreader.backend.control;
 
+import java.io.OutputStream;
+import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
+import org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException;
 import org.dyndns.beefochu.cxreader.backend.parsers.FeedParser;
-import org.dyndns.beefochu.cxreader.backend.control.FeedService;
 import java.util.NoSuchElementException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -23,7 +27,7 @@ import static org.mockito.Mockito.*;
 public class FeedServiceTest {
 
     private URL testFeed;
-    private FeedService feedService = new FeedService();
+    private FeedService feedService;
     private TypedQuery<Feed> feedQuery;
     private InOrder inOrder;
     private List<Feed> feeds;
@@ -33,22 +37,24 @@ public class FeedServiceTest {
 
     @Before
     @SuppressWarnings("unchecked")
-    public void setUp() {
-        //We only need an existing file so that URL#openStream() doesn't fail.
-        //It doesn't matter what file this is.
+    public void setUp() throws IOException {
+        this.feedService = new FeedService();
+        //It doesn't matter which file is used. It's just needet make
+        //URL#openStream() not fail.
         this.testFeed = FeedServiceTest.class.getResource("/arquillian.xml");
+
         this.feedService.em = mock(EntityManager.class);
         this.feedQuery = mock(TypedQuery.class);
         when(this.feedService.em.createNamedQuery(Feed.FIND_BY_URL, Feed.class)).thenReturn(this.feedQuery);
-        
+
         setUpFeedList();
         mockFeedParser();
-        
+
         this.inOrder = inOrder(this.feedQuery, this.feedService.em, this.parser, this.feedService.parsers, this.parsers);
     }
 
     @SuppressWarnings("unchecked")
-    private void mockFeedParser() {
+    private void mockFeedParser() throws IOException {
         this.feedService.parsers = mock(Instance.class);
         this.parsers = mock(Iterator.class);
         FeedParser parser1 = mock(FeedParser.class);
@@ -67,7 +73,7 @@ public class FeedServiceTest {
         feed.setUrl(testFeed);
         feeds.add(feed);
     }
-    
+
     @Test
     public void findOrCreateFeedNotFoundTest() throws FeedUrlInvalidException, MalformedURLException {
         when(this.feedQuery.getResultList()).thenReturn(new LinkedList<Feed>()).thenReturn(feeds);
@@ -93,10 +99,40 @@ public class FeedServiceTest {
         assertSame(feed, feedReturned);
     }
 
-    @Test(expected=FeedUrlInvalidException.class)
-    public void findOrCreateFeedNoParserAvailableTest() throws FeedUrlInvalidException {
+    @Test(expected = FeedUrlInvalidException.class)
+    public void findOrCreateFeedNoParserAvailableTest() throws FeedUrlInvalidException, IOException {
         when(this.parser.isFeedParsable(any(InputStream.class))).thenReturn(false);
         this.feedService.findOrCreate(testFeed);
+    }
+
+    @Test(expected = FeedUrlInvalidException.class)
+    public void findOrCreateParsingFailedTest() throws FeedUrlInvalidException, ParsingException, IOException {
+        doThrow(ParsingException.class).when(this.parser).update(any(Feed.class), any(InputStream.class));
+        this.feedService.findOrCreate(testFeed);
+    }
+
+    @Test(expected = FeedUrlInvalidException.class)
+    public void findOrCreateInvalidFeedTest() throws FeedUrlInvalidException, MalformedURLException {
+        this.feedService.findOrCreate(new URL("file:/Non-Existing-File"));
+    }
+
+    @Test(expected = FeedUrlInvalidException.class)
+    public void findOrCreateFeedToBigTest() throws IOException, FeedUrlInvalidException {
+        File tmp = createTempFile(FeedService.MAX_FEED_SIZE + 1);
+
+        //Should fail because file is to big.
+        this.feedService.findOrCreate(tmp.toURI().toURL());
+    }
+
+    @Test
+    public void findOrCreateFeedMaxSizeTest() throws IOException {
+        File tmp = createTempFile(FeedService.MAX_FEED_SIZE);
+        try {
+            this.feedService.findOrCreate(tmp.toURI().toURL());
+        } catch (FeedUrlInvalidException ex) {
+            System.out.println(ex);
+            fail("Methode should not fail for streams that are " + FeedService.MAX_FEED_SIZE + " big.");
+        }
     }
 
     private void verifyTestFeedSearched() {
@@ -115,9 +151,41 @@ public class FeedServiceTest {
         inOrder.verify(this.parsers).next();
         inOrder.verify(this.parsers).hasNext();
         inOrder.verify(this.parsers).next();
+        try {
+            inOrder.verify(this.parser).isFeedParsable(any(InputStream.class));
+        } catch (IOException ex) {
+            System.out.println(ex);
+            fail("Unexcepted IOException thrown");
+        }
     }
 
     private void verifyTestFeedUpdated() {
-        inOrder.verify(this.parser).update(any(Feed.class), any(InputStream.class));
+        try {
+            inOrder.verify(this.parser).update(any(Feed.class), any(InputStream.class));
+        } catch (ParsingException ex) {
+            System.out.println(ex);
+            fail("Unexcepted ParsingException thrown");
+        } catch (IOException ex) {
+            System.out.println(ex);
+            fail("Unexcepted IOException thrown");
+        }
+    }
+
+    private File createTempFile(int sizeInByte) throws IOException {
+        File tmp = File.createTempFile("cxReaderTestFile", ".xml");
+        tmp.deleteOnExit();
+        
+        byte[] buffer = new byte[1024];
+
+        OutputStream stream = new FileOutputStream(tmp);
+        for (int i = 0; i < sizeInByte / 1024; i++) {
+            stream.write(buffer);
+        }
+        stream.write(buffer, 0, sizeInByte % 1024);
+        stream.close();
+        
+        assertEquals(sizeInByte, tmp.length());
+
+        return tmp;
     }
 }
