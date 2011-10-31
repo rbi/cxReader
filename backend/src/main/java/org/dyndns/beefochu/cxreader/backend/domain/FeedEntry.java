@@ -1,6 +1,8 @@
 package org.dyndns.beefochu.cxreader.backend.domain;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,4 +18,38 @@ public class FeedEntry implements Serializable  {
     private long id;
     @ManyToOne
     private Feed feed;
+    
+    private String title;
+    private String url;
+    private String summary;
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public URL getUrl() {
+        try {
+            return new URL(url);
+        } catch (MalformedURLException ex) {
+            //not malformed
+            System.err.println(ex);
+            return null;
+        }
+    }
+
+    public void setUrl(URL url) {
+        this.url = url.toString();
+    }
 }

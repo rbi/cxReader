@@ -34,10 +34,11 @@ public class FeedServiceTest {
     private Feed feed;
     private FeedParser parser;
     private Iterator<FeedParser> parsers;
+    private Feed newFeed;
 
     @Before
     @SuppressWarnings("unchecked")
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, ParsingException {
         this.feedService = new FeedService();
         //It doesn't matter which file is used. It's just needet make
         //URL#openStream() not fail.
@@ -50,18 +51,20 @@ public class FeedServiceTest {
         setUpFeedList();
         mockFeedParser();
 
-        this.inOrder = inOrder(this.feedQuery, this.feedService.em, this.parser, this.feedService.parsers, this.parsers);
+        this.inOrder = inOrder(this.feedQuery, this.feedService.em, this.parser, this.feedService.parsers, this.parsers, this.newFeed);
     }
 
     @SuppressWarnings("unchecked")
-    private void mockFeedParser() throws IOException {
+    private void mockFeedParser() throws IOException, ParsingException {
         this.feedService.parsers = mock(Instance.class);
         this.parsers = mock(Iterator.class);
         FeedParser parser1 = mock(FeedParser.class);
         this.parser = mock(FeedParser.class);
+        this.newFeed = mock(Feed.class);
 
         when(parser1.isFeedParsable(any(InputStream.class))).thenReturn(false);
         when(this.parser.isFeedParsable(any(InputStream.class))).thenReturn(true);
+        when(this.parser.parse(any(InputStream.class))).thenReturn(this.newFeed);
         when(this.parsers.hasNext()).thenReturn(true).thenReturn(true).thenReturn(false);
         when(this.parsers.next()).thenReturn(parser1).thenReturn(this.parser).thenThrow(new NoSuchElementException());
         when(this.feedService.parsers.iterator()).thenReturn(this.parsers);
@@ -81,9 +84,10 @@ public class FeedServiceTest {
 
         verifyTestFeedSearched();
         verifyFeedParserSearched();
+        verifyTestFeedParsed();
+        verifyFeedUrlSet();
         verifyFeedPersited();
         verifyTestFeedSearched();
-        verifyTestFeedUpdated();
 
         assertSame(feed, feedReturned);
     }
@@ -107,7 +111,7 @@ public class FeedServiceTest {
 
     @Test(expected = FeedUrlInvalidException.class)
     public void findOrCreateParsingFailedTest() throws FeedUrlInvalidException, ParsingException, IOException {
-        doThrow(ParsingException.class).when(this.parser).update(any(Feed.class), any(InputStream.class));
+        doThrow(ParsingException.class).when(this.parser).parse(any(InputStream.class));
         this.feedService.findOrCreate(testFeed);
     }
 
@@ -159,9 +163,9 @@ public class FeedServiceTest {
         }
     }
 
-    private void verifyTestFeedUpdated() {
+    private void verifyTestFeedParsed() {
         try {
-            inOrder.verify(this.parser).update(any(Feed.class), any(InputStream.class));
+            inOrder.verify(this.parser).parse(any(InputStream.class));
         } catch (ParsingException ex) {
             System.out.println(ex);
             fail("Unexcepted ParsingException thrown");
@@ -169,6 +173,10 @@ public class FeedServiceTest {
             System.out.println(ex);
             fail("Unexcepted IOException thrown");
         }
+    }
+    
+    private void verifyFeedUrlSet() {
+        inOrder.verify(this.newFeed).setUrl(testFeed);
     }
 
     private File createTempFile(int sizeInByte) throws IOException {

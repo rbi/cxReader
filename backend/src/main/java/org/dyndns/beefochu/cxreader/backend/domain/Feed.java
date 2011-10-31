@@ -3,6 +3,7 @@ package org.dyndns.beefochu.cxreader.backend.domain;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,7 +26,8 @@ public class Feed implements Serializable {
     @Column(unique = true, nullable = false)
     private String url;
     @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
-    private List<FeedEntry> entries;
+    private List<FeedEntry> entries = new LinkedList<FeedEntry>();
+
     private String name;
 
     public Feed() {
@@ -55,7 +57,11 @@ public class Feed implements Serializable {
         }
         return null;
     }
-
+    
+    public List<FeedEntry> getEntries() {
+        return entries;
+    }
+    
     /**
      * Two feeds objects are equal if they have the same url.
      */

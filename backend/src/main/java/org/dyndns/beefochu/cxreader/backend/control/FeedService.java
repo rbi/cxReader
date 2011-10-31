@@ -45,17 +45,10 @@ public class FeedService {
             throw new FeedUrlInvalidException(ex);
         }
 
-        Feed newFeed = new Feed();
-        newFeed.setUrl(url);
-        em.persist(newFeed);
-        feeds = findFeed(url);
-
-        if (!feeds.isEmpty()) {
-            newFeed = feeds.get(0);
-        }
+        Feed newFeed = null;
 
         try {
-            parser.update(newFeed, stream);
+            newFeed = parser.parse(stream);
         } catch (Exception ex) {
             throw new FeedUrlInvalidException(ex);
         } finally {
@@ -66,6 +59,14 @@ public class FeedService {
             }
         }
 
+        newFeed.setUrl(url);
+        em.persist(newFeed);
+        feeds = findFeed(url);
+
+        if (!feeds.isEmpty()) {
+            newFeed = feeds.get(0);
+        }
+        
         return newFeed;
     }
 
