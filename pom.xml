@@ -59,12 +59,12 @@
             <dependency>
                 <groupId>org.jboss.arquillian.junit</groupId>
                 <artifactId>arquillian-junit-container</artifactId>
-                <version>1.0.0.Final-SNAPSHOT</version>
+                <version>1.0.0.CR5</version><!--1.0.0.Final-SNAPSHOT-->
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                <version>1.0.0.Final-SNAPSHOT</version>
+                <version>1.0.0.CR2</version><!--1.0.0.Final-SNAPSHOT-->
                 <scope>test</scope>
             </dependency>
             <dependency>

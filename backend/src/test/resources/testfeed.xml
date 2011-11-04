@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' >
+    <id>cxReader:test:testfeed1</id>
+    <updated>2011-09-05T10:39:10.867+02:00</updated>
+    <category term='java'/>
+    <category term='.net'/>
+    <title type='text'>Test Feed</title>
+    <author>
+        <name>Max Musterman</name>
+        <email>max@musterman.com</email>
+    </author>
+    <entry>
+        <id>cxReader:test:testfeed1:entry1</id>
+        <published>2011-04-19T16:41:00.001+02:00</published>
+        <updated>2011-04-19T16:41:28.105+02:00</updated>
+        <category term='java'/>
+        <title type='text'>An Example Entry</title>
+        <content type='html'>&lt;h1&gt;This is example content for an example entry&lt;/h1&gt;</content>
+        <link rel='replies' type='application/atom+xml' href='http://testdomain.de/testentry1/atom-reply-url' title='url for replies as atom'/>
+        <link rel='replies' type='text/html' href='http://testdomain.de/testentry1/html-reply-url' title='url for replies as html'/>
+        <link rel='alternate' type='text/html' href='http://testdomain.de/testentry1/the-link' title='Web link to post'/>
+        <author>
+            <name>Max Musterman</name>
+            <email>max@musterman.com</email>
+        </author>
+    </entry>
+    <entry>
+        <id>cxReader:test:testfeed1:entry2</id>
+        <published>2011-04-17T12:52:00.001+02:00</published>
+        <updated>2011-04-17T12:52:00.001+02:00</updated>
+        <category term='.net'/>
+        <title type='text'>Another Example Entry</title>
+        <content type='text'>This is other dummy content</content>
+        <link rel='replies' type='application/atom+xml' href='http://testdomain.de/testentry2/atom-reply-url' title='url for replies as atom'/>
+        <link rel='replies' type='text/html' href='http://testdomain.de/testentry2/html-reply-url' title='url for replies as html'/>
+        <link rel='alternate' type='text/html' href='http://testdomain.de/testentry2/the-link' title='Web link to post'/>
+        <author>
+            <name>Max Musterman</name>
+            <email>max@musterman.com</email>
+        </author>
+    </entry>
+</feed>

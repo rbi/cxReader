@@ -1,11 +1,12 @@
-package org.dyndns.beefochu.cxreader.backend.control;
+package org.dyndns.beefochu.cxreader.backend.services;
 
+import org.dyndns.beefochu.cxreader.backend.services.FeedService;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.io.File;
 import java.io.IOException;
 import org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException;
-import org.dyndns.beefochu.cxreader.backend.parsers.FeedParser;
+import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 import java.util.NoSuchElementException;
 import java.io.InputStream;
 import java.util.Iterator;

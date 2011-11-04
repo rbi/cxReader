@@ -1,12 +1,10 @@
 package org.dyndns.beefochu.cxreader.backend.ejb;
 
-import java.net.MalformedURLException;
+import org.junit.After;
+import org.jboss.shrinkwrap.api.Archive;
 import java.net.URL;
-import javax.transaction.NotSupportedException;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
-import org.junit.Ignore;
-import org.dyndns.beefochu.cxreader.backend.domain.FeedEntryUserRelation;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import javax.annotation.Resource;
 import org.dyndns.beefochu.cxreader.backend.domain.ReaderUser;
@@ -15,7 +13,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ejb.EJB;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.dyndns.beefochu.cxreader.backend.Reader;
 import org.jboss.arquillian.container.test.api.Deployment;
 import javax.transaction.UserTransaction;
@@ -28,7 +25,7 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class ReaderFacadeIT {
     private static final String TESTUSER = "testUser";
-    private String TESTFEEDURL = "http://test.tdl/test.xml";
+    private URL TESTFEEDURL = ReaderFacadeIT.class.getResource("/testfeed.xml");
     
     @EJB
     private Reader reader;
@@ -38,10 +35,11 @@ public class ReaderFacadeIT {
     private UserTransaction utx;
 
     @Deployment
-    public static JavaArchive deploy() {
+    public static Archive deploy() {
         return TestEjbJar.getTestEjbJar();
     }
 
+    @After
     public void cleanUp() throws Exception {
         utx.begin();
         for (ReaderUser user : getTestUser()) {
@@ -58,11 +56,14 @@ public class ReaderFacadeIT {
     }
     
     @Test
-    public void testAddBookmarkAndGetFeedList() throws MalformedURLException, FeedUrlInvalidException, FeedAlreadyInListException {
+    public void testAddBookmarkAndGetFeedList() throws FeedUrlInvalidException, FeedAlreadyInListException {
         assertTrue(reader.getFeedList(TESTUSER).isEmpty());
-        FeedUserRelation relation = reader.bookmarkFeed(TESTUSER, new URL(TESTFEEDURL));
-        assertEquals(relation.getFeed().getUrl(), new URL(TESTFEEDURL));
-        assertTrue(reader.getFeedList(TESTUSER).contains(relation));
+        FeedUserRelation relation = reader.bookmarkFeed(TESTUSER, TESTFEEDURL);
+        assertEquals(relation.getFeed().getUrl(), TESTFEEDURL);
+        
+        List<FeedUserRelation> feedList = reader.getFeedList(TESTUSER);
+        assertEquals(1, feedList.size());
+        assertEquals(TESTFEEDURL, relation.getFeed().getUrl());
     }
 
     private List<ReaderUser> getTestUser() {

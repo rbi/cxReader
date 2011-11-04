@@ -133,6 +133,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
+<!--                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>-->
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                             <includeScope>compile</includeScope>
                             <excludeArtifactIds>javaee-api</excludeArtifactIds>

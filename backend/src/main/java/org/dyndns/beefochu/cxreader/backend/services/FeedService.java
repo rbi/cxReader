@@ -1,7 +1,7 @@
-package org.dyndns.beefochu.cxreader.backend.control;
+package org.dyndns.beefochu.cxreader.backend.services;
 
 import java.io.ByteArrayInputStream;
-import org.dyndns.beefochu.cxreader.backend.parsers.FeedParser;
+import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -10,6 +10,7 @@ import java.util.List;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
@@ -21,7 +22,7 @@ public class FeedService {
      */
     public static final int MAX_FEED_SIZE = 1048576;
     
-    @Inject
+    @PersistenceContext
     EntityManager em;
     @Inject
     Instance<FeedParser> parsers;
@@ -41,6 +42,7 @@ public class FeedService {
                 stream.close();
                 throw new FeedUrlInvalidException();
             }
+            stream.reset();
         } catch (IOException ex) {
             throw new FeedUrlInvalidException(ex);
         }

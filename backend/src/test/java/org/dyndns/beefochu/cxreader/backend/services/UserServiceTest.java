@@ -1,6 +1,6 @@
-package org.dyndns.beefochu.cxreader.backend.control;
+package org.dyndns.beefochu.cxreader.backend.services;
 
-import org.dyndns.beefochu.cxreader.backend.control.UserService;
+import org.dyndns.beefochu.cxreader.backend.services.UserService;
 import org.junit.Ignore;
 import java.util.List;
 import org.mockito.InOrder;

@@ -1,5 +1,6 @@
-package org.dyndns.beefochu.cxreader.backend.parsers;
+package org.dyndns.beefochu.cxreader.backend.services.parsers;
 
+import org.dyndns.beefochu.cxreader.backend.services.parsers.RomeParser;
 import java.net.URL;
 import com.sun.syndication.feed.synd.SyndContent;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedEntry;
@@ -67,7 +68,7 @@ public class RomeParserTest {
         SyndEntry entry1 = mock(SyndEntry.class);
         SyndContent summary1 = mock(SyndContent.class);
         SyndEntry entry2 = mock(SyndEntry.class);
-        SyndContent summary2 = mock(SyndContent.class);
+        
         List<SyndEntry> entries = new LinkedList<SyndEntry>();
         entries.add(entry1);
         entries.add(entry2);
@@ -82,8 +83,7 @@ public class RomeParserTest {
         
         when(entry2.getTitle()).thenReturn("Another Title");
         when(entry2.getLink()).thenReturn("http://feed.de/url2");
-        when(summary2.getValue()).thenReturn("an summary for feed entry 2");
-        when(entry2.getDescription()).thenReturn(summary2);
+        when(entry2.getDescription()).thenReturn(null); // has no description
         
         Feed feed = parser.parse(dummyInputStream);
         assertEquals("Test Feed", feed.getName());
@@ -100,7 +100,7 @@ public class RomeParserTest {
         FeedEntry returnedEntry2 = feedEntries.get(1);
         assertEquals("Another Title", returnedEntry2.getTitle());
         assertEquals(new URL("http://feed.de/url2"), returnedEntry2.getUrl());
-        assertEquals("an summary for feed entry 2", returnedEntry2.getSummary());
+        assertEquals(null, returnedEntry2.getSummary());
         
     }
 

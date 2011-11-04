@@ -1,5 +1,6 @@
-package org.dyndns.beefochu.cxreader.backend.parsers;
+package org.dyndns.beefochu.cxreader.backend.services.parsers;
 
+import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.FeedException;
@@ -10,8 +11,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedEntry;
@@ -62,8 +61,13 @@ public class RomeParser implements FeedParser {
 
     private FeedEntry transform(SyndEntry syndEntry) {
         FeedEntry entry = new FeedEntry();
+        
         entry.setTitle(syndEntry.getTitle());
-        entry.setSummary(syndEntry.getDescription().getValue());
+        
+        SyndContent description = syndEntry.getDescription();
+        if(description != null)
+            entry.setSummary(description.getValue());
+        
         try {
             entry.setUrl(new URL(syndEntry.getLink()));
         } catch (MalformedURLException ex) {

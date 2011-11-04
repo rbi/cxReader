@@ -1,6 +1,5 @@
-package org.dyndns.beefochu.cxreader.backend.control;
+package org.dyndns.beefochu.cxreader.backend.services;
 
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
