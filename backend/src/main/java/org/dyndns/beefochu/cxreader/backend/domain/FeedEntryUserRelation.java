@@ -9,9 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
-public class FeedEntryUserRelation implements Serializable  {
-        private static final long serialVersionUID = 1L;
-    
+public class FeedEntryUserRelation implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -20,8 +20,11 @@ public class FeedEntryUserRelation implements Serializable  {
     @ManyToOne
     private FeedUserRelation userFeed;
     @ManyToOne
-    private FeedEntry entry;
-    
+    private FeedEntry feedEntry;
     private boolean unread;
     private boolean bookmarked;
+
+    public FeedEntry getFeedEntry() {
+        return this.feedEntry;
+    }
 }

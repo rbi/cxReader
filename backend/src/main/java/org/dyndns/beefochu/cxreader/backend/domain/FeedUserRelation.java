@@ -43,23 +43,7 @@ public class FeedUserRelation implements Serializable  {
         this.feed = feed;
     }
     
-    public ReaderUser getUser() {
-        return user;
-    }
-    
-    public void setUser(ReaderUser user) {
-        this.user = user;
-    }
-    
     public Feed getFeed() {
         return this.feed;
-    }
-    
-    public void setFeed(Feed feed) {
-        this.feed = feed;
-    }
-    
-    public List<FeedEntryUserRelation> getMarkedFeedEntries() {
-        return markedFeedEntries;
     }
 }

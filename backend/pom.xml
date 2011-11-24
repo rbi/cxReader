@@ -126,19 +126,6 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-                    <execution>
-                        <phase>validate</phase>
-                        <id>copy-project-dependencies</id>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-<!--                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>-->
-                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                            <includeScope>compile</includeScope>
-                            <excludeArtifactIds>javaee-api</excludeArtifactIds>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
