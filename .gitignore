@@ -5,3 +5,8 @@ derby.log
 /backend/target/
 /assembly/target/
 /frontend-web/target/
+/frontend-web/faces-config.NavData
+/frontend-web/nb-configuration.xml
+.settings/
+.project
+.classpath

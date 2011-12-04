@@ -11,5 +11,6 @@ public class TestEjbJar {
 
     public static Archive getTestEjbJar() {
         return ShrinkWrap.createFromZipFile(JavaArchive.class, new File("target/" + JAR_NAME));
+        		//.addAsManifestResource(new File("src/test/resources/glassfish-ejb-jar.xml"), "/glassfish-ejb-jar.xml");
     }
 }
