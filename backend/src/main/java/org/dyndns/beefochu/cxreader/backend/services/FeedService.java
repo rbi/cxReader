@@ -1,19 +1,21 @@
 package org.dyndns.beefochu.cxreader.backend.services;
 
 import java.io.ByteArrayInputStream;
-import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
+import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 
 public class FeedService {
 
@@ -37,6 +39,7 @@ public class FeedService {
         FeedParser parser = null;
         try {
             stream = readStream(url);
+            
             parser = getHandler(stream);
             if (parser == null) {
                 stream.close();
@@ -105,17 +108,18 @@ public class FeedService {
         byte[] buffer = new byte[MAX_FEED_SIZE];
         InputStream in = url.openStream();
         int bytesRead = 0;
-
-        while (in.available() != 0) {
-            int readCount = MAX_FEED_SIZE - bytesRead;
-            if (readCount == 0) {
-                in.close();
-                throw new IOException("Feed to large!");
-            }
+        
+        int readCount = READ_AT_ONCE;
+        while(readCount > 0 && (readCount = in.read(buffer, bytesRead, readCount))!= -1) {
+        	bytesRead += readCount;
+            readCount = MAX_FEED_SIZE - bytesRead;
             if (READ_AT_ONCE < readCount) {
                 readCount = READ_AT_ONCE;
             }
-            bytesRead += in.read(buffer, bytesRead, READ_AT_ONCE);
+        }
+        if (in.read(new byte[1], 0, 1) != -1) {
+            in.close();
+            throw new IOException("Feed to large!");
         }
 
         in.close();

@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
+import org.junit.Ignore;
 import org.junit.Test;
 import javax.persistence.TypedQuery;
 import javax.persistence.EntityManager;
@@ -135,7 +136,7 @@ public class FeedServiceTest {
         try {
             this.feedService.findOrCreate(tmp.toURI().toURL());
         } catch (FeedUrlInvalidException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
             fail("Methode should not fail for streams that are " + FeedService.MAX_FEED_SIZE + " big.");
         }
     }

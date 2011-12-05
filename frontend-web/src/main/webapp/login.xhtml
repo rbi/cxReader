@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>cxReader</title>
+    </h:head>
+    <h:body>
+        <h:outputText id="login-failed" rendered="#{param.failed}" value="The username/password combination is invalid" />
+        <form method="post" action="j_security_check" name="loginForm">
+            <h:outputLabel id="username-label" value="Username: " for="j_username" />
+            <h:inputText id="j_username" required="true" />
+            
+            <h:outputLabel id="password-label" value="Password: " for="j_password" />
+            <h:inputSecret id="j_password" required="true" />
+            
+            <h:commandButton id="login-button" type="submit" value="login" />
+        </form>
+    </h:body>
+</html>
+

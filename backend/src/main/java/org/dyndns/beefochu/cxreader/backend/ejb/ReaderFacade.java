@@ -8,6 +8,7 @@ import javax.ejb.Local;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -20,6 +21,7 @@ import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
 import org.dyndns.beefochu.cxreader.backend.services.FeedService;
 import org.dyndns.beefochu.cxreader.backend.services.UserService;
 
+@Named
 @Stateless
 @Local(Reader.class)
 //@DeclareRoles("users")
