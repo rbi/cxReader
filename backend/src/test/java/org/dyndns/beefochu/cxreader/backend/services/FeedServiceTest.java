@@ -1,30 +1,37 @@
 package org.dyndns.beefochu.cxreader.backend.services;
 
-import org.dyndns.beefochu.cxreader.backend.services.FeedService;
-import java.io.OutputStream;
-import java.io.FileOutputStream;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException;
-import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
-import java.util.NoSuchElementException;
 import java.io.InputStream;
-import java.util.Iterator;
-import javax.enterprise.inject.Instance;
-import java.util.List;
-import java.util.LinkedList;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
-import org.junit.Ignore;
-import org.junit.Test;
-import javax.persistence.TypedQuery;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import javax.enterprise.inject.Instance;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
+import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
+import org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException;
+import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InOrder;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class FeedServiceTest {
 

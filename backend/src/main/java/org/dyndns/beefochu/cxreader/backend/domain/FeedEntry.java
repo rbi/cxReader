@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -21,6 +22,7 @@ public class FeedEntry implements Serializable  {
     
     private String title;
     private String url;
+    @Lob
     private String summary;
 
     public String getSummary() {

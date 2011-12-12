@@ -37,4 +37,8 @@ public class ReaderUser implements Serializable {
     public List<FeedUserRelation> getFeeds() {
         return this.feeds;
     }
+
+	public String getName() {
+		return name;
+	}
 }

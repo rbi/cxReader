@@ -2,16 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:r="http://java.sun.com/jsf/composite/components/rssReader">
 <h:head>
 	<title>cxReader</title>
 </h:head>
 <h:body>
-	<h:dataTable id="feedList" value="#{feedController.bookmarks}"
-		var="bookmark">
-		<h:column>
-			<h:outputText value="#{bookmark.feed.name}" />
-		</h:column>
-	</h:dataTable>
+	<!-- <h:commandButton id="showAddFeedDialog" value="add feed"/> -->
+	<r:addFeedDialog id="addFeedDialog" />
+	<r:feedList id="feedList" />
 </h:body>
 </html>

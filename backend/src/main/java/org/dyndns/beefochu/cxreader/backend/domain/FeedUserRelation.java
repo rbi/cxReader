@@ -27,7 +27,6 @@ public class FeedUserRelation implements Serializable  {
     
     @ManyToOne
     private ReaderUser user;
-    @ManyToOne()
     private Feed feed;
     @OneToMany(mappedBy="userFeed", cascade= CascadeType.ALL)
     private List<FeedEntryUserRelation> markedFeedEntries = new ArrayList<FeedEntryUserRelation>();

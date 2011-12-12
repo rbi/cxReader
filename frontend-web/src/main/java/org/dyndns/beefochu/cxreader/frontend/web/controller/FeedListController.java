@@ -13,23 +13,33 @@ import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 
 @Named
 @SessionScoped
-public class FeedController implements Serializable {
+public class FeedListController implements Serializable {
 
 	private static final long serialVersionUID = -1216869584943556445L;
+    private List<FeedUserRelation> bookmarks;
 	
 	@Inject
     Reader reader;
-    private List<FeedUserRelation> bookmarks;
 
-    public FeedController() {
+    public FeedListController() {
     }
 
     @PostConstruct
     public void init() {
-    	this.bookmarks = reader.getFeedList();
+    	refreshBookmarkList();
     }
 
     public List<FeedUserRelation> getBookmarks() {
         return bookmarks;
+    }
+    
+    public void delete(FeedUserRelation bookmark) {
+    	System.out.println("They called me!");
+    	reader.removeBookmarkedFeed(bookmark);
+    	refreshBookmarkList();
+    }
+    
+    public void refreshBookmarkList() {
+    	this.bookmarks = reader.getFeedList();
     }
 }

@@ -12,7 +12,8 @@ public class TestWar {
     //defined in arquillian.xml
     private static int HTTP_PORT = 12345;
 
-    public static Archive getTestWar() {
+    @SuppressWarnings("rawtypes")
+	public static Archive getTestWar() {
         return ShrinkWrap.createFromZipFile(WebArchive.class, new File("target/" + WAR_NAME));
     }
 

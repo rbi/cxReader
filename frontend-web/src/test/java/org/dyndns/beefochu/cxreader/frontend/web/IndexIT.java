@@ -35,7 +35,8 @@ public class IndexIT {
     
     private WebTester browser;
     
-    @Deployment
+    @SuppressWarnings("rawtypes")
+	@Deployment
     public static Archive deploy() {
         return TestWar.getTestWar();
     }

@@ -40,6 +40,7 @@ public class ReaderFacadeIT {
 	@Resource
 	private UserTransaction utx;
 
+	@SuppressWarnings("rawtypes")
 	@Deployment
 	public static Archive deploy() {
 		return TestEjbJar.getTestEjbJar();
