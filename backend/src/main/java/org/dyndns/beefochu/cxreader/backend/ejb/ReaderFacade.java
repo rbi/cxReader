@@ -51,8 +51,10 @@ public class ReaderFacade implements Reader {
     }
 
     @Override
-    public void removeBookmarkedFeed(FeedUserRelation feed) {
-        userService.removeBookmarkedFeed(getUserName(), feed);
+    public void removeBookmarkedFeed(FeedUserRelation feedUserRelation) {
+        Feed feed = userService.removeBookmarkedFeed(getUserName(), feedUserRelation);
+        if(feed != null)
+        	feedService.removeIfOrphan(feed);
     }
 
     @Override

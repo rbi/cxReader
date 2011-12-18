@@ -12,9 +12,10 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class FeedEntry implements Serializable  {
-        private static final long serialVersionUID = 1L;
     
-    @Id
+	private static final long serialVersionUID = -4375666728969510036L;
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne

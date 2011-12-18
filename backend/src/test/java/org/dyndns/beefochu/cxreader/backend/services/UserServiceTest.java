@@ -1,23 +1,33 @@
 package org.dyndns.beefochu.cxreader.backend.services;
 
-import org.dyndns.beefochu.cxreader.backend.services.UserService;
-import org.junit.Ignore;
-import java.util.List;
-import org.mockito.InOrder;
-import java.util.LinkedList;
-import javax.persistence.EntityManager;
-import org.dyndns.beefochu.cxreader.backend.domain.ReaderUser;
-import javax.persistence.TypedQuery;
-import org.dyndns.beefochu.cxreader.backend.domain.Feed;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.validation.constraints.AssertFalse;
+
+import org.dyndns.beefochu.cxreader.backend.domain.Feed;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
+import org.dyndns.beefochu.cxreader.backend.domain.ReaderUser;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import org.mockito.InOrder;
 
 public class UserServiceTest {
 
@@ -33,11 +43,11 @@ public class UserServiceTest {
     @SuppressWarnings("unchecked")
     public void setUp() {
         this.userService = new UserService();
-
         this.userService.em = mock(EntityManager.class);
+        
         this.userQuery = mock(TypedQuery.class);
-        this.inOrder = inOrder(this.userQuery, this.userService.em);
         this.user = mock(ReaderUser.class);
+        this.inOrder = inOrder(this.userQuery, this.userService.em, this.user);
 
         when(this.userService.em.createNamedQuery(ReaderUser.FIND_BY_NAME, ReaderUser.class)).thenReturn(this.userQuery);
 
@@ -46,6 +56,8 @@ public class UserServiceTest {
 
         when(this.user.getFeeds()).thenReturn(feeds);
         users.add(this.user);
+        
+        when(this.userQuery.getResultList()).thenReturn(users);
     }
 
     @Test
@@ -62,19 +74,16 @@ public class UserServiceTest {
 
     @Test
     public void testGetFeedListUserDoesExist() {
-        when(this.userQuery.getResultList()).thenReturn(users);
-
         List<FeedUserRelation> feedsReturned = userService.getFeedList(TESTUSER);
 
         verifyUserExistenceChecked();
+        verifyFeedUserRelationRetrived();
         inOrder.verifyNoMoreInteractions();
         assertSame(feeds, feedsReturned);
     }
 
-    @Test
+	@Test
     public void testAddFeed() throws MalformedURLException, FeedUrlInvalidException, FeedAlreadyInListException {
-        when(this.userQuery.getResultList()).thenReturn(users);
-        
         FeedUserRelation feed = userService.addFeed(TESTUSER, new Feed(new URL("http://test.feed/x")));
         verifyFeedUserRelationPersisted(feed);
         assertTrue(this.feeds.contains(feed));
@@ -82,8 +91,6 @@ public class UserServiceTest {
 
     @Test(expected = FeedAlreadyInListException.class)
     public void testAddFeedAllreadyInList() throws FeedUrlInvalidException, FeedAlreadyInListException, MalformedURLException {
-        when(this.userQuery.getResultList()).thenReturn(users);
-        
         Feed feed = new Feed(new URL("http://test.feed/x"));
         
         final FeedUserRelation feedRelation = new FeedUserRelation(this.user, feed);
@@ -93,15 +100,36 @@ public class UserServiceTest {
     }
 
     @Test
-    @Ignore("not implemented")
-    public void removeBookmark() {
-        fail("not implemented");
+    public void removeBookmarkNotInList() {
+    	FeedUserRelation param = createFeedUserRelationWithId(1, new Feed());
+    	FeedUserRelation feed1 = createFeedUserRelationWithId(2, new Feed());
+    	FeedUserRelation feed2 = createFeedUserRelationWithId(3, new Feed());
+    	
+    	this.feeds.add(feed1);
+    	this.feeds.add(feed2);
+    	
+        assertNull(userService.removeBookmarkedFeed(TESTUSER, param));
+        
+        verifyUserExistenceChecked();
+        verifyFeedUserRelationRetrived();
+        inOrder.verifyNoMoreInteractions();
     }
 
-    @Test
-    @Ignore("not implemented")
-    public void removeBookmarkNotInList() {
-        fail("not implemented");
+	@Test
+    public void removeBookmarkInList() {
+		Feed feedToReturn = new Feed();
+    	FeedUserRelation param = createFeedUserRelationWithId(1, new Feed());
+    	FeedUserRelation feed1 = createFeedUserRelationWithId(2, new Feed());
+    	FeedUserRelation feed2 = createFeedUserRelationWithId(1, feedToReturn);
+    	
+    	this.feeds.add(feed1);
+    	this.feeds.add(feed2);
+    	
+        assertSame(feedToReturn, userService.removeBookmarkedFeed(TESTUSER, param));
+        verifyUserExistenceChecked();
+        verifyFeedUserRelationRetrived();
+        assertFalse(this.feeds.contains(feed2));
+        inOrder.verify(this.userService.em).remove(feed2);
     }
 
     private void verifyUserExistenceChecked() {
@@ -117,4 +145,32 @@ public class UserServiceTest {
     private void verifyFeedUserRelationPersisted(FeedUserRelation feed) {
         verify(this.userService.em).persist(feed);
     }
+    
+    private void verifyFeedUserRelationRetrived() {
+		inOrder.verify(this.user).getFeeds();
+	}
+    
+    private FeedUserRelation createFeedUserRelationWithId(int id, Feed feed) {
+		FeedUserRelation rel = new FeedUserRelation(this.user, feed);
+		
+		try {
+			Field idField = FeedUserRelation.class.getDeclaredField("id");
+			idField.setAccessible(true);
+			idField.set(rel, id);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rel;
+	}
 }

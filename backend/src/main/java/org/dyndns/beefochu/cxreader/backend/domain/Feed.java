@@ -18,8 +18,8 @@ import javax.persistence.OneToMany;
 @NamedQuery(name = Feed.FIND_BY_URL, query = "Select e from Feed e where e.url = :url")
 public class Feed implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    public static final String FIND_BY_URL = "findFeedCommonByUrl";
+	private static final long serialVersionUID = 7067492299527767344L;
+	public static final String FIND_BY_URL = "findFeedCommonByUrl";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

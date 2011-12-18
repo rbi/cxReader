@@ -34,7 +34,6 @@ public class FeedListController implements Serializable {
     }
     
     public void delete(FeedUserRelation bookmark) {
-    	System.out.println("They called me!");
     	reader.removeBookmarkedFeed(bookmark);
     	refreshBookmarkList();
     }

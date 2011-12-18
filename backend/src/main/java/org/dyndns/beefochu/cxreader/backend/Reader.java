@@ -34,7 +34,8 @@ public interface Reader {
 	 * 
 	 * @param feed
 	 *            The feed the user want to remove from his bookmark list. Only
-	 *            feeds retrived by #getFeedList(java.lang.String) can be used!
+	 *            feeds retrived by #getFeedList(java.lang.String) should be used!
+	 *            If using other FeedUserRelation objects, nothing happens.
 	 */
 	public void removeBookmarkedFeed(FeedUserRelation feed);
 

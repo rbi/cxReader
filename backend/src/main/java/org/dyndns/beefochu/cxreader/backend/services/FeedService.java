@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
+import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
 import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 
@@ -74,6 +75,23 @@ public class FeedService {
         
         return newFeed;
     }
+    
+    /**
+     * Removes a feed and all it's entries from the database if no user
+     * has bookmarked it anymore.
+     * 
+     * @param feed The feed that should be removed when it's orphan. Must be
+     * 		attached!
+     */
+	public void removeIfOrphan(Feed feed) {
+        TypedQuery<Long> feedQuery = em.createNamedQuery(FeedUserRelation.COUNT_FEED_SUBSCRIBERS, Long.class);
+        feedQuery.setParameter("feed", feed);
+
+        if(feedQuery.getSingleResult() != 0)
+        	return;
+        
+        em.remove(feed);
+	}
 
     private List<Feed> findFeed(URL url) {
         TypedQuery<Feed> feedQuery = em.createNamedQuery(Feed.FIND_BY_URL, Feed.class);

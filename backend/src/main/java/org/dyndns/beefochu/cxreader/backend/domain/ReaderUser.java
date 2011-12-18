@@ -16,8 +16,8 @@ import javax.persistence.OneToMany;
 @NamedQuery(name = ReaderUser.FIND_BY_NAME, query = "Select e from ReaderUser e where e.name = :username")
 public class ReaderUser implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    public static final String FIND_BY_NAME = "findReaderUserByName";
+	private static final long serialVersionUID = 1169934844472332888L;
+	public static final String FIND_BY_NAME = "findReaderUserByName";
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
