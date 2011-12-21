@@ -42,5 +42,10 @@
             <artifactId>frontend-web</artifactId>
             <type>war</type>
         </dependency>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>connector-rest</artifactId>
+            <type>war</type>
+        </dependency>
     </dependencies>
 </project>

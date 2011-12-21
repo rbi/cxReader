@@ -7,9 +7,10 @@
     <packaging>pom</packaging>
     <name>cxReader</name>
     <modules>
-        <module>assembly</module>
-        <module>frontend-web</module>
         <module>backend</module>
+        <module>connector-rest</module>
+        <module>frontend-web</module>
+        <module>assembly</module>
     </modules>
     
     <repositories>
@@ -42,6 +43,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>frontend-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>connector-rest</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
             </dependency>
