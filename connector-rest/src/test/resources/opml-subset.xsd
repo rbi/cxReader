@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.opml.org/spec2"
+	xmlns:tns="http://www.opml.org/spec2" elementFormDefault="qualified">
+	<!-- based on http://dev.opml.org/spec2.html -->
+
+	<complexType name="head">
+		<!-- TODO complete me -->
+	</complexType>
+
+	<complexType name="body">
+		<sequence minOccurs="1" maxOccurs="unbounded">
+			<element name="outline" type="tns:outline" />
+		</sequence>
+	</complexType>
+
+	<complexType name="outline">
+		<!-- TODO can have child outline elements -->
+		<attribute name="text" use="required" type="string" />
+		<attribute name="type" fixed="rss" use="required" type="string">
+			<!-- spec doesn't restrict type to rss, required for subscription lists -->
+		</attribute>
+		<attribute name="xmlUrl" use="required" type="anyURI" >
+			<!-- required for subscription lists -->
+		</attribute>
+		<!-- TODO optional attributes -->
+	</complexType>
+
+	<element name="opml">
+		<complexType>
+			<sequence maxOccurs="1" minOccurs="1">
+				<element name="head" type="tns:head" />
+				<element name="body" type="tns:body" />
+			</sequence>
+			<attribute name="version" fixed="2.0" type="string" use="required" />
+		</complexType>
+	</element>
+</schema>

@@ -21,7 +21,7 @@ public class FeedReaderResource {
 
     @GET
     @Path("feeds/")
-    @Produces(MediaType.TEXT_PLAIN) //text/x-opml
+    @Produces({MediaType.APPLICATION_XML, "text/x-opml"})
     public String getFeedList() {
 		return "Test";
 
