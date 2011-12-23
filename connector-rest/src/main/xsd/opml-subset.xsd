@@ -22,13 +22,14 @@
 		<attribute name="xmlUrl" use="required" type="anyURI" >
 			<!-- required for subscription lists -->
 		</attribute>
+		<anyAttribute namespace="##other"/>
 		<!-- TODO optional attributes -->
 	</complexType>
 
 	<element name="opml">
 		<complexType>
 			<sequence maxOccurs="1" minOccurs="1">
-				<element name="head" type="tns:head" />
+				<element name="head" type="tns:head"/>
 				<element name="body" type="tns:body" />
 			</sequence>
 			<attribute name="version" fixed="2.0" type="string" use="required" />

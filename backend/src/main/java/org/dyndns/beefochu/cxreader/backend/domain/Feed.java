@@ -37,6 +37,10 @@ public class Feed implements Serializable {
         this.url = url.toString();
     }
 
+	public long getId() {
+		return id;
+	}
+    
     public void setName(String name) {
         this.name = name;
     }
