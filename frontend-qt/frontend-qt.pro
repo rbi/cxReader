@@ -3,6 +3,8 @@
 ######################################################################
 
 TEMPLATE = app
+QT += webkit network xml xmlpatterns
+CONFIG += debug
 #TARGET = 
 #DEPENDPATH += .
 INCLUDEPATH += src/main/cpp
@@ -14,7 +16,12 @@ RCC_DIR = target/generated-sources/rcc
 UI_DIR = target/generated-sources/uic
 
 # Input
-HEADERS += src/main/cpp/cxreader.h
+HEADERS += src/main/cpp/cxreader.h \
+    src/main/cpp/feedlistmodel.h
 FORMS += src/main/qt-forms/cxreader.ui
 SOURCES += src/main/cpp/cxreader.cpp\
-	src/main/cpp/main.cpp
+	src/main/cpp/main.cpp \
+    src/main/cpp/feedlistmodel.cpp
+
+RESOURCES += \
+    src/main/ressources.qrc
