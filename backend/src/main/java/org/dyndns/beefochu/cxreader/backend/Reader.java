@@ -1,7 +1,9 @@
 package org.dyndns.beefochu.cxreader.backend;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
+
 import org.dyndns.beefochu.cxreader.backend.domain.FeedEntryUserRelation;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException;
@@ -34,13 +36,14 @@ public interface Reader {
 	 * 
 	 * @param feed
 	 *            The feed the user want to remove from his bookmark list. Only
-	 *            feeds retrived by #getFeedList(java.lang.String) should be used!
-	 *            If using other FeedUserRelation objects, nothing happens.
+	 *            feeds retrived by #getFeedList(java.lang.String) should be
+	 *            used! If using other FeedUserRelation objects, nothing
+	 *            happens.
 	 */
 	public void removeBookmarkedFeed(FeedUserRelation feed);
 
 	/**
-	 * Returns entries of a feed. The entries are ordered by date.
+	 * Returns entries of a feed. The entries are ordered by date, newest first.
 	 * 
 	 * @param offset
 	 *            The number of the first entry in the list.
@@ -54,6 +57,17 @@ public interface Reader {
 	 */
 	public List<FeedEntryUserRelation> getEntries(FeedUserRelation feed,
 			int offset, int count, boolean unreadOnly);
+
+	/**
+	 * Returns entries of a feed. The entries are ordered by date, newest first.
+	 * 
+	 * @param newerThan
+	 *            Only feeds that are newer than this date are returned. This
+	 *            Date is expected be in UTC time zone.
+	 * @return
+	 */
+	public List<FeedEntryUserRelation> getEntries(FeedUserRelation feed,
+			Date newerThan);
 
 	/**
 	 * Mark an feed entry as read or not read for a specific user.

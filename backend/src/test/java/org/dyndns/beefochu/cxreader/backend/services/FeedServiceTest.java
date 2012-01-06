@@ -1,5 +1,6 @@
 package org.dyndns.beefochu.cxreader.backend.services;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
@@ -29,6 +30,7 @@ import org.dyndns.beefochu.cxreader.backend.domain.Feed;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
 import org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException;
+import org.dyndns.beefochu.cxreader.backend.services.FeedService.FindOrCreateReturn;
 import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 import org.junit.Before;
 import org.junit.Test;
@@ -105,7 +107,8 @@ public class FeedServiceTest {
 			MalformedURLException {
 		when(this.feedQuery.getResultList()).thenReturn(new LinkedList<Feed>())
 				.thenReturn(feeds);
-		Feed feedReturned = this.feedService.findOrCreate(testFeed);
+		FindOrCreateReturn returnVal = this.feedService.findOrCreate(testFeed);
+		assertTrue(returnVal.isNew);
 
 		verifyTestFeedSearched();
 		verifyFeedParserSearched();
@@ -114,19 +117,20 @@ public class FeedServiceTest {
 		verifyFeedPersited();
 		verifyTestFeedSearched();
 
-		assertSame(feed, feedReturned);
+		assertSame(feed, returnVal.feed);
 	}
 
 	@Test
 	public void findOrCreateFeedFoundTest() throws MalformedURLException,
 			FeedUrlInvalidException {
 		when(this.feedQuery.getResultList()).thenReturn(this.feeds);
-		Feed feedReturned = this.feedService.findOrCreate(testFeed);
+		FindOrCreateReturn feedReturned = this.feedService.findOrCreate(testFeed);
+		assertFalse(feedReturned.isNew);
 
 		verifyTestFeedSearched();
 		inOrder.verifyNoMoreInteractions();
 
-		assertSame(feed, feedReturned);
+		assertSame(feed, feedReturned.feed);
 	}
 
 	@Test(expected = FeedUrlInvalidException.class)

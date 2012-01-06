@@ -1,24 +1,33 @@
 package org.dyndns.beefochu.cxreader.backend.services.parsers;
 
-import org.dyndns.beefochu.cxreader.backend.services.parsers.RomeParser;
-import java.net.URL;
-import com.sun.syndication.feed.synd.SyndContent;
-import org.dyndns.beefochu.cxreader.backend.domain.FeedEntry;
-import java.util.List;
-import java.util.LinkedList;
-import com.sun.syndication.feed.synd.SyndEntry;
-import org.dyndns.beefochu.cxreader.backend.domain.Feed;
-import org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException;
-import com.sun.syndication.feed.synd.SyndFeed;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import com.sun.syndication.io.FeedException;
-import com.sun.syndication.io.SyndFeedInput;
-import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.dyndns.beefochu.cxreader.backend.domain.Feed;
+import org.dyndns.beefochu.cxreader.backend.domain.FeedEntry;
+import org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+
+import com.sun.syndication.feed.synd.SyndContent;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.FeedException;
+import com.sun.syndication.io.SyndFeedInput;
 
 public class RomeParserTest {
 
@@ -80,10 +89,14 @@ public class RomeParserTest {
         when(entry1.getLink()).thenReturn("invalid url");
         when(summary1.getValue()).thenReturn("test summary of feed 1");
         when(entry1.getDescription()).thenReturn(summary1);
+        when(entry1.getPublishedDate()).thenReturn(new Date(1));
+        when(entry1.getUpdatedDate()).thenReturn(new Date(2));
         
         when(entry2.getTitle()).thenReturn("Another Title");
         when(entry2.getLink()).thenReturn("http://feed.de/url2");
         when(entry2.getDescription()).thenReturn(null); // has no description
+        when(entry2.getPublishedDate()).thenReturn(new Date(3));
+        when(entry2.getUpdatedDate()).thenReturn(null);
         
         Feed feed = parser.parse(dummyInputStream);
         assertEquals("Test Feed", feed.getName());
@@ -96,11 +109,13 @@ public class RomeParserTest {
         assertEquals("Title 1", returnedEntry1.getTitle());
         assertNull(returnedEntry1.getUrl());
         assertEquals("test summary of feed 1", returnedEntry1.getSummary());
+        assertEquals(2, returnedEntry1.getLastUpdate().getTime());
         
         FeedEntry returnedEntry2 = feedEntries.get(1);
         assertEquals("Another Title", returnedEntry2.getTitle());
         assertEquals(new URL("http://feed.de/url2"), returnedEntry2.getUrl());
         assertEquals(null, returnedEntry2.getSummary());
+        assertEquals(3, returnedEntry2.getLastUpdate().getTime());
         
     }
 
