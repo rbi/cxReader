@@ -87,7 +87,9 @@ public class UserService {
 
 		for(FeedUserRelation rel : relations) {
 			for(FeedEntry newEntry : newEntries) {
-				rel.addFeedEntryUserRelation(new FeedEntryUserRelation(newEntry));
+				FeedEntryUserRelation entryRel = new FeedEntryUserRelation(newEntry);
+				entryRel.setRead(false);
+				rel.addFeedEntryUserRelation(entryRel);
 			}
 		}
 	}

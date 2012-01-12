@@ -16,7 +16,6 @@ import javax.persistence.TypedQuery;
 
 import org.dyndns.beefochu.cxreader.backend.Reader;
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
-import org.dyndns.beefochu.cxreader.backend.domain.FeedEntry;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedEntryUserRelation;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException;
@@ -78,15 +77,6 @@ public class ReaderFacade implements Reader {
 	}
 
 	@Override
-	public void setReadStatus(FeedEntryUserRelation entry, boolean read) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	private String getUserName() {
-		return ctx.getCallerPrincipal().getName();
-	}
-
-	@Override
 	public List<FeedEntryUserRelation> getEntries(FeedUserRelation feed,
 			Date newerThan) {
 		TypedQuery<FeedEntryUserRelation> query = em.createNamedQuery(
@@ -95,5 +85,14 @@ public class ReaderFacade implements Reader {
 		query.setParameter("feedRelation", feed);
 		query.setParameter("date", newerThan);
 		return query.getResultList();
+	}
+	
+	@Override
+	public void setReadStatus(FeedEntryUserRelation entry, boolean read) {
+		em.find(FeedEntryUserRelation.class, entry.getId()).setRead(read);
+	}
+	
+	private String getUserName() {
+		return ctx.getCallerPrincipal().getName();
 	}
 }

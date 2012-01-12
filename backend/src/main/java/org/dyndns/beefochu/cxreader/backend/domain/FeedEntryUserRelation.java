@@ -30,7 +30,7 @@ public class FeedEntryUserRelation implements Serializable {
     private FeedUserRelation userFeed;
     @ManyToOne
     private FeedEntry feedEntry;
-    private boolean unread;
+    private boolean entryRead;
     private boolean bookmarked;
     
     protected FeedEntryUserRelation() {
@@ -40,6 +40,10 @@ public class FeedEntryUserRelation implements Serializable {
     public FeedEntryUserRelation(FeedEntry feedEntry) {
     	this.feedEntry = feedEntry;
     }
+
+	public long getId() {
+		return this.id;
+	}
     
     public FeedEntry getFeedEntry() {
         return this.feedEntry;
@@ -48,4 +52,12 @@ public class FeedEntryUserRelation implements Serializable {
     void setUserFeed(FeedUserRelation userFeed) {
     	this.userFeed = userFeed;
     }
+
+	public boolean isRead() {
+		return this.entryRead;
+	}
+
+	public void setRead(boolean read) {
+		this.entryRead = read;
+	}
 }

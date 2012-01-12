@@ -1,8 +1,6 @@
 package org.dyndns.beefochu.cxreader.backend.ejb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -177,6 +175,22 @@ public class ReaderFacadeIT {
 		
 		entries = reader.getEntries(relation, new Date(1303224088105L));
 		assertEquals(0, entries.size());
+	}
+	
+	@Test
+	public void testSetReadStatus() throws FeedUrlInvalidException, FeedAlreadyInListException {
+		FeedUserRelation relation = reader.bookmarkFeed(TESTFEEDURL);
+		
+		List<FeedEntryUserRelation> entries = reader.getEntries(relation, new Date(0));
+		assertFalse(entries.get(0).isRead());
+		
+		reader.setReadStatus(entries.get(0), true);
+		entries = reader.getEntries(relation, new Date(0));
+		assertTrue(entries.get(0).isRead());
+
+		reader.setReadStatus(entries.get(0), false);
+		entries = reader.getEntries(relation, new Date(0));
+		assertFalse(entries.get(0).isRead());
 	}
 	
 	private List<Feed> findFeed(URL feedUrl) {
