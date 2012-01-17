@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/2005/Atom"
+	xmlns:tns="http://www.w3.org/2005/Atom" elementFormDefault="qualified">
+	<!-- based on http://tools.ietf.org/html/rfc4287 -->
+
+	<simpleType name="atomUri">
+		<restriction base="anyURI" />
+		<!-- atomUri defined as URI but as IRI -->
+	</simpleType>
+
+	<complexType name="atomLink">
+		<attribute name="href" type="tns:atomUri" use="required" />
+		<attribute name="rel" use="required">
+			<!-- RFC: not neccessary -->
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="self" />
+					<enumeration value="alternate" />
+				</restriction>
+			</simpleType>
+		</attribute>
+	</complexType>
+
+	<simpleType name="atomTextConstruct">
+		<restriction base="string" />
+		<!-- optional type element with "text" | "html" | "xhtml" -->
+	</simpleType>
+
+	<complexType name="atomPersonConstruct">
+		<all>
+			<element name="name" type="string" />
+			<!-- optional uri, email (atomEmailAddress) -->
+		</all>
+	</complexType>
+
+	<complexType name="atomEntry">
+		<!-- can be top level element with name "entry" -->
+		<sequence>
+			<!-- RFC makes no constraints on the element order -->
+			<element name="author" type="tns:atomPersonConstruct"
+				maxOccurs="1" minOccurs="1">
+				<!-- RFC maxOccurs="unbound" -->
+			</element>
+			<element name="id" type="tns:atomUri" maxOccurs="1"
+				minOccurs="1" />
+			<element name="title" type="tns:atomTextConstruct" minOccurs="1"
+				maxOccurs="1" />
+			<element name="updated" type="dateTime" minOccurs="1"
+				maxOccurs="1" />
+			<element name="link" type="tns:atomLink" minOccurs="1"
+				maxOccurs="1">
+				<!-- RFC says MUST contain with rel="alternate", if no content element 
+					is present; maxOccurs="unbound" -->
+			</element>
+			<element name="summary" type="tns:atomTextConstruct"
+				minOccurs="1" maxOccurs="1">
+				<!-- RFC: in some special cases not necessary -->
+			</element>
+
+			<any minOccurs="0" namespace="##other"/>
+		</sequence>
+	</complexType>
+
+	<element name="feed">
+		<complexType>
+			<sequence>
+				<!-- RFC makes no constraints on the element order -->
+				<element name="author" type="tns:atomPersonConstruct"
+					maxOccurs="1" minOccurs="1">
+					<!-- RFC maxOccurs="unbound" -->
+				</element>
+				<element name="id" type="tns:atomUri" maxOccurs="1"
+					minOccurs="1" />
+				<element name="link" type="tns:atomLink" minOccurs="1"
+					maxOccurs="1">
+					<!-- RFC says SHOULD contain, not MUST; rel SHOULD be "self" -->
+				</element>
+				<element name="title" type="tns:atomTextConstruct"
+					minOccurs="1" maxOccurs="1" />
+				<element name="updated" type="dateTime" minOccurs="1"
+					maxOccurs="1" />
+				<element name="entry" type="tns:atomEntry" minOccurs="0"
+					maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>
