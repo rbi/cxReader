@@ -44,7 +44,7 @@
 				<artifactId>jaxb2-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>generate-opml-classed</id>
+						<id>generate-opml-classes</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>xjc</goal>
@@ -52,6 +52,21 @@
 						<configuration>
 							<schemaFiles>opml-subset.xsd, opml-extension-feed-id.xsd</schemaFiles>
 							<packageName>${basepackage}.jaxb.opml</packageName>
+							<staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-opml</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb-opml</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-atom-classes</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<configuration>
+							<schemaFiles>atom-subset.xsd, atom-extension-user-entry-relations.xsd</schemaFiles>
+							<packageName>${basepackage}.jaxb.atom</packageName>
+							<staleFile>${project.build.directory}/jaxb2/.xjcStaleFlag-atom</staleFile>
+							<outputDirectory>${project.build.directory}/generated-sources/jaxb-atom</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -69,7 +84,8 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>${project.build.directory}/gernerated-sources/jaxb</source>
+								<source>${project.build.directory}/gernerated-sources/jaxb-opml</source>
+								<source>${project.build.directory}/gernerated-sources/jaxb-atom</source>
 							</sources>
 						</configuration>
 					</execution>
