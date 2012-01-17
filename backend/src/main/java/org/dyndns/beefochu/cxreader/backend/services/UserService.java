@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
+import org.dyndns.beefochu.cxreader.backend.domain.FeedEntry;
+import org.dyndns.beefochu.cxreader.backend.domain.FeedEntryUserRelation;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.backend.domain.ReaderUser;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException;
@@ -39,31 +41,57 @@ public class UserService {
 	}
 
 	/**
-	 * Removes a feed bookmark and the all FeedEntryUserRelations for this user and feed. 
+	 * Removes a feed bookmark and the all FeedEntryUserRelations for this user
+	 * and feed.
+	 * 
 	 * @param username
-	 * @param feed The bookmark to remove
-	 * @return The Feed object of the feed bookmark that was removed or null if the feed
-	 * 		was not bookmarked by this user
+	 * @param feed
+	 *            The bookmark to remove
+	 * @return The Feed object of the feed bookmark that was removed or null if
+	 *         the feed was not bookmarked by this user
 	 */
 	public Feed removeBookmarkedFeed(String username, FeedUserRelation feed) {
 		List<FeedUserRelation> feeds = getFeedList(username);
 
 		FeedUserRelation attachedFeed = null;
-		
+
 		for (FeedUserRelation curr : feeds) {
 			if (feed.equals(curr)) {
 				attachedFeed = curr;
 				break;
 			}
 		}
-		
-		if(attachedFeed == null)
+
+		if (attachedFeed == null)
 			return null;
-		
+
 		feeds.remove(attachedFeed);
 		em.remove(attachedFeed);
-		
+
 		return attachedFeed.getFeed();
+	}
+
+	/**
+	 * Creates FeedEntryUserRelation objects for all FeedEntry passed to this
+	 * method via the newEntry object.
+	 * 
+	 * @param feed the feed these entries belong to.
+	 * @param newEntries
+	 */
+	public void createFeedEntryUserRelations(Feed feed,
+			List<FeedEntry> newEntries) {
+		TypedQuery<FeedUserRelation> query = em.createNamedQuery(
+				FeedUserRelation.FIND_FEEDS_FOR_ENTRY, FeedUserRelation.class);
+		query.setParameter("feed", feed);
+		List<FeedUserRelation> relations = query.getResultList();
+
+		for(FeedUserRelation rel : relations) {
+			for(FeedEntry newEntry : newEntries) {
+				FeedEntryUserRelation entryRel = new FeedEntryUserRelation(newEntry);
+				entryRel.setRead(false);
+				rel.addFeedEntryUserRelation(entryRel);
+			}
+		}
 	}
 
 	private ReaderUser findOrCreateUser(String username) {

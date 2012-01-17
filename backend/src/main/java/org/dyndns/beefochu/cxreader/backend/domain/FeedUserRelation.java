@@ -17,13 +17,15 @@ import javax.persistence.Version;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = FeedUserRelation.FIND_FEEDS_FOR_USER, query = "Select e from FeedUserRelation e where e.user = :user"),
-		@NamedQuery(name = FeedUserRelation.COUNT_FEED_SUBSCRIBERS, query = "SELECT COUNT(r) FROM FeedUserRelation r WHERE r.feed = :feed") })
+		@NamedQuery(name = FeedUserRelation.COUNT_FEED_SUBSCRIBERS, query = "SELECT COUNT(r) FROM FeedUserRelation r WHERE r.feed = :feed"),
+		@NamedQuery(name = FeedUserRelation.FIND_FEEDS_FOR_ENTRY, query = "Select e from FeedUserRelation e where e.feed = :feed") })
 public class FeedUserRelation implements Serializable {
 
 	private static final long serialVersionUID = 6686673424345047985L;
 
 	public static final String FIND_FEEDS_FOR_USER = "findFeedsForUser";
 	public static final String COUNT_FEED_SUBSCRIBERS = "countFeedSubscribers";
+	public static final String FIND_FEEDS_FOR_ENTRY = "findFeedsForEntry";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,6 +52,11 @@ public class FeedUserRelation implements Serializable {
 
 	public Feed getFeed() {
 		return this.feed;
+	}
+	
+	public void addFeedEntryUserRelation(FeedEntryUserRelation newRelation) {
+		this.markedFeedEntries.add(newRelation);
+		newRelation.setUserFeed(this);
 	}
 
 	@Override

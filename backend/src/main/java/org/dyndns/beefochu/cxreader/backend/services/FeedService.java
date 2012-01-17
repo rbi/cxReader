@@ -14,12 +14,18 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
+import org.dyndns.beefochu.cxreader.backend.domain.FeedEntry;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
 import org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser;
 
 public class FeedService {
 
+	public static class FindOrCreateReturn {
+		public Feed feed;
+		public boolean isNew;
+	}
+	
     /**
      * The maximal size that is allowed for a feed (currently 1MB).
      */
@@ -29,13 +35,26 @@ public class FeedService {
     EntityManager em;
     @Inject
     Instance<FeedParser> parsers;
-
-    public Feed findOrCreate(URL url) throws FeedUrlInvalidException {
+    
+    /**
+     * Returns a the persisted Feed that belongs to the url or
+     * null if there is no such Feed.
+     * 
+     * @param url
+     * @return
+     * @throws FeedUrlInvalidException
+     */
+    public FindOrCreateReturn findOrCreate(URL url) throws FeedUrlInvalidException {
+    	FindOrCreateReturn returnVal = new FindOrCreateReturn();
         List<Feed> feeds = findFeed(url);
         if (!feeds.isEmpty()) {
-            return feeds.get(0);
+        	returnVal.isNew = false;
+        	returnVal.feed = feeds.get(0);
+        	return returnVal;
         }
 
+    	returnVal.isNew = true;
+    	
         InputStream stream = null;
         FeedParser parser = null;
         try {
@@ -72,8 +91,9 @@ public class FeedService {
         if (!feeds.isEmpty()) {
             newFeed = feeds.get(0);
         }
+        returnVal.feed = newFeed;
         
-        return newFeed;
+        return returnVal;
     }
     
     /**
