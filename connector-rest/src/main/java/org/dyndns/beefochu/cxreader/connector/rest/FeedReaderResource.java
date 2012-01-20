@@ -4,6 +4,7 @@ import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 import static javax.xml.datatype.DatatypeConstants.GREATER;
 import static javax.xml.datatype.DatatypeConstants.JANUARY;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -31,7 +33,7 @@ import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.AtomEntry;
 import org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.AtomLink;
 import org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.AtomPersonConstruct;
-import org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.Marker;
+import org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.CxReader;
 import org.dyndns.beefochu.cxreader.connector.rest.jaxb.opml.Body;
 import org.dyndns.beefochu.cxreader.connector.rest.jaxb.opml.Head;
 import org.dyndns.beefochu.cxreader.connector.rest.jaxb.opml.Opml;
@@ -156,11 +158,11 @@ public class FeedReaderResource {
 		AtomLink feedLink = new AtomLink();
 		feedLink.setHref(entryUri);
 		feedLink.setRel("self");
-		
-		//TODO set real author
+
+		// TODO set real author
 		AtomPersonConstruct author = new AtomPersonConstruct();
 		author.setName("unknown");
-		
+
 		org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.Feed atomFeed = new org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.Feed();
 		atomFeed.setAuthor(author);
 		atomFeed.setId(entryUri);
@@ -177,10 +179,10 @@ public class FeedReaderResource {
 	private AtomEntry createAtomEntry(FeedEntryUserRelation entryRelation) {
 		FeedEntry entry = entryRelation.getFeedEntry();
 
-		//TODO set real author
+		// TODO set real author
 		AtomPersonConstruct author = new AtomPersonConstruct();
 		author.setName("unknown");
-		
+
 		AtomLink entryLink = new AtomLink();
 		entryLink.setHref(entry.getUrl().toString());
 		entryLink.setRel("alternate");
@@ -189,17 +191,18 @@ public class FeedReaderResource {
 		XMLGregorianCalendar xmlCal = this.xmlTypesFactory
 				.newXMLGregorianCalendar(gregCal);
 
-		Marker marker = new Marker();
-		marker.setRead(entryRelation.isRead());
-		
+		CxReader extensions = new CxReader();
+		extensions.setId(BigInteger.valueOf(entry.getId()));
+		extensions.setRead(entryRelation.isRead());
+
 		AtomEntry atomEntry = new AtomEntry();
-		atomEntry.setAuthor(author );
+		atomEntry.setAuthor(author);
 		atomEntry.setId(entry.getUrl().toString());
 		atomEntry.setLink(entryLink);
 		atomEntry.setSummary(entry.getSummary());
 		atomEntry.setTitle(entry.getTitle());
 		atomEntry.setUpdated(xmlCal);
-		atomEntry.setAny(marker);
+		atomEntry.setAny(extensions);
 
 		return atomEntry;
 	}

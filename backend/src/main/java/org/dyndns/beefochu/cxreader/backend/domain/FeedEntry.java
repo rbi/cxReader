@@ -1,6 +1,7 @@
 package org.dyndns.beefochu.cxreader.backend.domain;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -71,5 +72,9 @@ public class FeedEntry implements Serializable {
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public long getId() {
+		return this.id;
 	}
 }
