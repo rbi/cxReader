@@ -1,11 +1,10 @@
 package org.dyndns.beefochu.cxreader.backend.ejb;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,6 +16,7 @@ import javax.transaction.UserTransaction;
 
 import org.dyndns.beefochu.cxreader.backend.Reader;
 import org.dyndns.beefochu.cxreader.backend.domain.Feed;
+import org.dyndns.beefochu.cxreader.backend.domain.FeedEntryUserRelation;
 import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 import org.dyndns.beefochu.cxreader.backend.domain.ReaderUser;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException;
@@ -28,7 +28,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -83,6 +82,9 @@ public class ReaderFacadeIT {
 		List<FeedUserRelation> feedList = reader.getFeedList();
 		assertEquals(1, feedList.size());
 		assertEquals(TESTFEEDURL, relation.getFeed().getUrl());
+		
+		//Feed should contain entries
+		assertTrue(reader.getEntries(feedList.get(0), new Date(0)).size() != 0);
 	}
 
 	@Test
@@ -150,6 +152,45 @@ public class ReaderFacadeIT {
 		reader.removeBookmarkedFeed(rel);
 		
 		assertEquals("Feed was not orphan but was deleted anyway.", 1, findFeed(TESTFEEDURL).size());
+	}
+	
+	@Test
+	public void testGetAllFeedEntries() throws FeedUrlInvalidException, FeedAlreadyInListException {
+		FeedUserRelation relation = reader.bookmarkFeed(TESTFEEDURL);
+		List<FeedEntryUserRelation> entries = reader.getEntries(relation, new Date(0));
+		assertEquals(2, entries.size());
+		
+		//title of first is clear because it's ordered by date
+		assertEquals("An Example Entry", entries.get(0).getFeedEntry().getTitle());
+		assertEquals("Another Example Entry", entries.get(1).getFeedEntry().getTitle());
+	}
+	
+	@Test
+	public void testGetFeedEntriesNewerThan() throws FeedUrlInvalidException, FeedAlreadyInListException {
+		FeedUserRelation relation = reader.bookmarkFeed(TESTFEEDURL);
+		
+		List<FeedEntryUserRelation> entries = reader.getEntries(relation, new Date(1303224088104L));
+		assertEquals(1, entries.size());
+		assertEquals("An Example Entry", entries.get(0).getFeedEntry().getTitle());
+		
+		entries = reader.getEntries(relation, new Date(1303224088105L));
+		assertEquals(0, entries.size());
+	}
+	
+	@Test
+	public void testSetReadStatus() throws FeedUrlInvalidException, FeedAlreadyInListException {
+		FeedUserRelation relation = reader.bookmarkFeed(TESTFEEDURL);
+		
+		List<FeedEntryUserRelation> entries = reader.getEntries(relation, new Date(0));
+		assertFalse(entries.get(0).isRead());
+		
+		reader.setReadStatus(entries.get(0), true);
+		entries = reader.getEntries(relation, new Date(0));
+		assertTrue(entries.get(0).isRead());
+
+		reader.setReadStatus(entries.get(0), false);
+		entries = reader.getEntries(relation, new Date(0));
+		assertFalse(entries.get(0).isRead());
 	}
 	
 	private List<Feed> findFeed(URL feedUrl) {

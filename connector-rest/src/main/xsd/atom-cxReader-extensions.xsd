@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://beefochu.dyndns.org/atom-cxReader-extensions"
+	targetNamespace="http://beefochu.dyndns.org/atom-cxReader-extensions"
+	elementFormDefault="qualified">
+	<element name="cxReader">
+		<complexType>
+			<sequence>
+				<element name="id" type="unsignedLong" minOccurs="1" maxOccurs="1"/>
+				<element name="read" type="boolean" minOccurs="1" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -79,6 +80,14 @@ public class RomeParser implements FeedParser {
             entry.setUrl(new URL(syndEntry.getLink()));
         } catch (MalformedURLException ex) {
             //do nothing, url will be null;
+        }
+        
+        //TODO check assertion that rome returns utc time
+        Date date = syndEntry.getUpdatedDate();
+        if(date != null) {
+        	entry.setLastUpdate(date);
+        } else {
+        	entry.setLastUpdate(syndEntry.getPublishedDate());
         }
         return entry;
     }

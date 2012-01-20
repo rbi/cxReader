@@ -4,15 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>connector-rest</display-name>
 
-	<servlet>
-		<servlet-name>REST Servlet</servlet-name>
-		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>REST Servlet</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
-
 	<security-constraint>
 		<display-name>user-login</display-name>
 		<web-resource-collection>
