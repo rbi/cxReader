@@ -5,12 +5,14 @@ import static javax.xml.datatype.DatatypeConstants.GREATER;
 import static javax.xml.datatype.DatatypeConstants.JANUARY;
 
 import java.math.BigInteger;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -20,6 +22,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.datatype.DatatypeFactory;
@@ -118,8 +121,6 @@ public class FeedReaderResource {
 			newerThan = new Date(0);
 
 		FeedUserRelation feed = getFeedUserRelation(id);
-		if (feed == null)
-			throw new WebApplicationException(Status.NOT_FOUND);
 
 		org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom.Feed atomFeed = createBasicFeed(
 				feed, id);
@@ -138,15 +139,110 @@ public class FeedReaderResource {
 		return atomFeed;
 	}
 
-	private FeedUserRelation getFeedUserRelation(long id) {
-		FeedUserRelation feed = null;
-		List<FeedUserRelation> feeds = reader.getFeedList();
-		for (int i = 0; i < feeds.size(); i++) {
-			feed = feeds.get(i);
-			if (feed.getFeed().getId() == id) {
+	/**
+	 * Set's the read status for this FeedEntry object.
+	 * 
+	 * @param feedId
+	 *            The id of the Feed object this FeedEntry belongs to.
+	 * @param entryId
+	 *            The id of the FeedEntry object.
+	 * @param read
+	 *            true if entry is read, false if not. If no value is supplied
+	 *            this defaults to true
+	 */
+	@PUT
+	@Path("feeds/{feedId:([0-9]+)}/{entryId:([0-9]+)}")
+	public void setReadStatus(@PathParam("feedId") long feedId,
+			@PathParam("entryId") long entryId,
+			@DefaultValue("true") @QueryParam("read") boolean read) {
+
+		FeedEntryUserRelation rel = getFeedEntryUserRelation(feedId, entryId);
+		reader.setReadStatus(rel, read);
+	}
+
+	/**
+	 * Redirects to the url of the link whith rel="alternate" of this FeedEntry.
+	 * 
+	 * @param feedId
+	 *            The id of the Feed object this FeedEntry belongs to.
+	 * @param entryId
+	 *            The id of the FeedEntry object.
+	 */
+	@GET
+	@Path("feeds/{feedId:([0-9]+)}/{entryId:([0-9]+)}")
+	public Response getFeedContent(@PathParam("feedId") long feedId,
+			@PathParam("entryId") long entryId) {
+
+		FeedEntryUserRelation rel = getFeedEntryUserRelation(feedId, entryId);
+
+		try {
+			return Response.seeOther(rel.getFeedEntry().getUrl().toURI())
+					.build();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * @param feedId
+	 *            the id of the Feed object for the FeedUserRelation object that
+	 *            should contain the FeedEntryUserRelation that is searched for.
+	 * @param entryId
+	 *            the id of the FeedEntry object for the FeedEntryUserRelation
+	 *            object that is searched for.
+	 * @throws WebApplicationException
+	 *             if the user has not subscribed to any feed with id=feedId or
+	 *             the feed doesn't contain any entries with id=entryId
+	 */
+	private FeedEntryUserRelation getFeedEntryUserRelation(long feedId,
+			long entryId) {
+		// TODO optimize me: search for id directly in sql query
+		FeedUserRelation feed = getFeedUserRelation(feedId);
+
+		List<FeedEntryUserRelation> entries = reader.getEntries(feed, new Date(
+				0));
+		
+		FeedEntryUserRelation rel = null;
+		for(int i = 0; i < entries.size(); i++) {
+			FeedEntryUserRelation relCur = entries.get(i);
+			if(relCur.getFeedEntry().getId() == entryId) {
+				rel = relCur;
 				break;
 			}
 		}
+		
+		if (rel == null)
+			throw new WebApplicationException(Status.NOT_FOUND);
+		
+		return rel;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 *            the id of the Feed object for the FeedUserRelation object that
+	 *            is searched for
+	 * @throws WebApplicationException
+	 *             if the user has not subscribed to any feed with the id
+	 */
+	private FeedUserRelation getFeedUserRelation(long id) {
+		// TODO optimize me: search for id directly in sql query
+		FeedUserRelation feed = null;
+		List<FeedUserRelation> feeds = reader.getFeedList();
+		for (int i = 0; i < feeds.size(); i++) {
+			FeedUserRelation feedCur = feeds.get(i);
+			if (feedCur.getFeed().getId() == id) {
+				feed = feedCur;
+				break;
+			}
+		}
+
+		if (feed == null)
+			throw new WebApplicationException(Status.NOT_FOUND);
+
 		return feed;
 	}
 
