@@ -17,11 +17,16 @@ UI_DIR = target/generated-sources/uic
 
 # Input
 HEADERS += src/main/cpp/cxreader.h \
-    src/main/cpp/feedlistmodel.h
-FORMS += src/main/qt-forms/cxreader.ui
+    src/main/cpp/feedlistmodel.h \
+    src/main/cpp/feedentrylistmodel.h \
+    src/main/cpp/config.h
+FORMS += src/main/qt-forms/cxreader.ui \
+    src/main/qt-forms/config.ui
 SOURCES += src/main/cpp/cxreader.cpp\
 	src/main/cpp/main.cpp \
-    src/main/cpp/feedlistmodel.cpp
+    src/main/cpp/feedlistmodel.cpp \
+    src/main/cpp/feedentrylistmodel.cpp \
+    src/main/cpp/config.cpp
 
 RESOURCES += \
     src/main/ressources.qrc

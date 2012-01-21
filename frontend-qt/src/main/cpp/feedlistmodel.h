@@ -4,12 +4,11 @@
 #include <QAbstractListModel>
 #include <QVariant>
 #include <QList>
-#include <QNetworkAccessManager>
-#include <QAuthenticator>
 #include <QNetworkReply>
 #include <QAbstractXmlReceiver>
 #include <QXmlName>
 #include <QXmlNamePool>
+#include "config.h"
 
 typedef struct
 {
@@ -21,7 +20,10 @@ class FeedListModel : public QAbstractListModel, public QAbstractXmlReceiver
 {
     Q_OBJECT
 public:
-    explicit FeedListModel(QString baseUrl, QObject *parent = 0);
+    enum CUSTOM_DATA {
+        ID = 32
+    };
+    explicit FeedListModel(Config * config, QObject *parent = 0);
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
@@ -40,18 +42,15 @@ public:
     void startDocument() {}
     void startOfSequence() {}
 private:
-    QString baseUrl;
-    QNetworkAccessManager *manager;
     QList<Feed> feeds;
     Feed current;
     QXmlNamePool namePool;
     void initFeedList();
+    Config *config;
 signals:
 
 public slots:
 
-private slots:
-    void authenticate(QNetworkReply* reply,QAuthenticator* authenticator);
 };
 
 #endif // FEEDLISTMODEL_H

@@ -5,14 +5,9 @@
 #include <QXmlResultItems>
 #include "feedlistmodel.h"
 
-FeedListModel::FeedListModel(QString baseUrl, QObject *parent) :
-    QAbstractListModel(parent), QAbstractXmlReceiver()
+FeedListModel::FeedListModel(Config *config, QObject * parent) :
+    QAbstractListModel(parent), QAbstractXmlReceiver(), config(config)
 {
-    this->manager = new QNetworkAccessManager(this);
-    connect(this->manager, SIGNAL(authenticationRequired(QNetworkReply*,QAuthenticator*)), SLOT(authenticate(QNetworkReply*,QAuthenticator*)));
-    //TODO network errors
-
-    this->baseUrl = baseUrl;
     initFeedList();
 }
 
@@ -23,16 +18,19 @@ int FeedListModel::rowCount(const QModelIndex &parent) const
 
 QVariant FeedListModel::data(const QModelIndex &index, int role) const
 {
+    Feed feed = this->feeds.at(index.row());
     if(role == Qt::DisplayRole)
-        return this->feeds.at(index.row()).name;
-    return QVariant();
+        return feed.name;
+    else if(role == ID)
+        return feed.id;
+    return QVariant::Invalid;
 }
 
 QVariant FeedListModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if(role == Qt::DisplayRole)
         return tr("Feeds");
-    return QVariant();
+    return QVariant::Invalid;
 }
 
 void FeedListModel::initFeedList()
@@ -41,8 +39,8 @@ void FeedListModel::initFeedList()
     queryFile.open(QIODevice::ReadOnly);
 
     QXmlQuery query;
-    query.setNetworkAccessManager(this->manager);
-    query.bindVariable("file", QVariant(this->baseUrl + "/feeds/"));
+    query.setNetworkAccessManager(this->config->manager());
+    query.bindVariable("file", QVariant(this->config->baseUrl() + "/feeds/"));
     query.setQuery(&queryFile);
     this->namePool = query.namePool();
     query.evaluateTo(this);
@@ -50,11 +48,7 @@ void FeedListModel::initFeedList()
     queryFile.close();
 }
 
-void FeedListModel::authenticate(QNetworkReply* reply, QAuthenticator* authenticator)
-{
-    authenticator->setUser("test");
-    authenticator->setPassword("test");
-}
+
 
 void FeedListModel::attribute(const QXmlName &name, const QStringRef &value)
 {
