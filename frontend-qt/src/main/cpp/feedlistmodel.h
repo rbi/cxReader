@@ -24,13 +24,14 @@ public:
         ID = 32
     };
     explicit FeedListModel(Config * config, QObject *parent = 0);
+    //overrides for QAbstractListModel
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    //overrided XML Stuff
+    //overrides for QAbstractXmlReceiver
     void attribute(const QXmlName &name, const QStringRef &value);
     void endElement();
-
+    //not needed
     void startElement(const QXmlName &name) {}
     void atomicValue(const QVariant &) {}
     void characters(const QStringRef &) {}

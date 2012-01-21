@@ -6,13 +6,12 @@ CxReader::CxReader(Config * config, QWidget *parent) :
     ui(new Ui::CxReader), config(config), feedEntryListModel(NULL)
 {
     ui->setupUi(this);
+    this->ui->splitterFeedList->setSizes(QList<int>()<<50<<180);
+    this->ui->splitterFeedEntryList->setSizes(QList<int>()<<50<<80);
 
     this->feedListModel = new FeedListModel(config, this);
     this->ui->feedList->setModel(this->feedListModel);
-    this->ui->feedList->setSelectionMode(QAbstractItemView::SingleSelection);
-    connect(this->ui->feedList->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), SLOT(feedChanged(QModelIndex,QModelIndex)));
-
-
+    connect(this->ui->feedList->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(feedChanged(QItemSelection,QItemSelection)));
 }
 
 CxReader::~CxReader()
@@ -23,14 +22,23 @@ CxReader::~CxReader()
     delete ui;
 }
 
-void CxReader::feedChanged(QModelIndex current, QModelIndex previous)
+void CxReader::feedChanged(QItemSelection selected, QItemSelection deselected)
 {
     FeedEntryListModel * old = feedEntryListModel;
 
-    QString id = this->feedListModel->data(current, FeedListModel::ID).toString();
+
+    QString id = this->feedListModel->data(selected.indexes().at(0), FeedListModel::ID).toString();
+
     this->feedEntryListModel = new FeedEntryListModel(this->config, id, this);
     this->ui->feedEntryList->setModel(this->feedEntryListModel);
+    connect(this->ui->feedEntryList->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(feedEntryChanged(QItemSelection, QItemSelection)));
 
     if(old != NULL)
         delete old;
+}
+
+void CxReader::feedEntryChanged(QItemSelection selected, QItemSelection deselected)
+{
+    QString summary = this->feedEntryListModel->data(selected.indexes().at(0), FeedEntryListModel::SUMMARY).toString();
+    this->ui->feedEntryContent->setHtml(summary);
 }

@@ -15,7 +15,7 @@ int FeedListModel::rowCount(const QModelIndex &parent) const
 {
     return this->feeds.size();
 }
-
+#include <QDebug>
 QVariant FeedListModel::data(const QModelIndex &index, int role) const
 {
     Feed feed = this->feeds.at(index.row());
@@ -47,8 +47,6 @@ void FeedListModel::initFeedList()
 
     queryFile.close();
 }
-
-
 
 void FeedListModel::attribute(const QXmlName &name, const QStringRef &value)
 {

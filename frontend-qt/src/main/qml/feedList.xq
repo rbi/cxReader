@@ -1,5 +1,5 @@
 declare namespace o = "http://www.opml.org/spec2";
-declare namespace b = "http://beefochu.dyndns.org/opml-extension-feed-id";
+declare namespace b = "http://beefochu.dyndns.org/opml-cxReader-extensions";
 
 <feeds> {
   for $x in doc($file)/o:opml/o:body/o:outline[@type="rss"]

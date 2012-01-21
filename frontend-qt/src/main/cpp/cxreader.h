@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QNetworkReply>
 #include <QAuthenticator>
+#include <QItemSelection>
 #include "config.h"
 #include "feedlistmodel.h"
 #include "feedentrylistmodel.h"
@@ -26,7 +27,8 @@ private:
     FeedEntryListModel * feedEntryListModel;
     QNetworkAccessManager * _manager;
 private slots:
-    void feedChanged(QModelIndex current, QModelIndex previous);
+    void feedChanged(QItemSelection selected, QItemSelection deselected);
+    void feedEntryChanged(QItemSelection selected, QItemSelection deselected);
 };
 
 #endif // CXREADER_H

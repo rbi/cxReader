@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>597</width>
-    <height>457</height>
+    <width>715</width>
+    <height>563</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,12 +16,12 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QSplitter" name="splitter_2">
+     <widget class="QSplitter" name="splitterFeedList">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QListView" name="feedList"/>
-      <widget class="QSplitter" name="splitter">
+      <widget class="QSplitter" name="splitterFeedEntryList">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -43,7 +43,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>597</width>
+     <width>715</width>
      <height>21</height>
     </rect>
    </property>

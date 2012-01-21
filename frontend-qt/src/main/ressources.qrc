@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/cxReader">
         <file>qml/feedList.xq</file>
+        <file>qml/feedEntryList.xq</file>
     </qresource>
 </RCC>
