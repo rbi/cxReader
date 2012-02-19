@@ -22,6 +22,7 @@ public:
         SUMMARY = 32
     };
     explicit FeedEntryListModel(Config * config, QString id, QObject * parent);
+    void showOnlyUnread(bool unreadOnly);
     //overrides for QAbstractListModel
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
@@ -44,11 +45,15 @@ public:
     void startOfSequence() {}
 private:
     QList<FeedEntry> feedEntries;
+    QList<FeedEntry*> feedEntriesAll;
+    QList<FeedEntry*> feedEntriesUnread;
+    QList<FeedEntry*> * currentFeedEntries;
     FeedEntry current;
     QString id;
     Config * config;
     QXmlNamePool namePool;
     void initFeedEntryList();
+    void rebuildUnreadEntriesList();
 };
 
 #endif // FEEDENTRYLISTMODEL_H

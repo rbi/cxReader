@@ -29,6 +29,7 @@ private:
 private slots:
     void feedChanged(QItemSelection selected, QItemSelection deselected);
     void feedEntryChanged(QItemSelection selected, QItemSelection deselected);
+    void unreadOnlyChanged(bool status);
 };
 
 #endif // CXREADER_H

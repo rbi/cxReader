@@ -12,6 +12,7 @@ CxReader::CxReader(Config * config, QWidget *parent) :
     this->feedListModel = new FeedListModel(config, this);
     this->ui->feedList->setModel(this->feedListModel);
     connect(this->ui->feedList->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(feedChanged(QItemSelection,QItemSelection)));
+    connect(this->ui->unreadOnly, SIGNAL(toggled(bool)), SLOT(unreadOnlyChanged(bool)));
 }
 
 CxReader::~CxReader()
@@ -20,6 +21,11 @@ CxReader::~CxReader()
         delete feedEntryListModel;
     delete feedListModel;
     delete ui;
+}
+
+void CxReader::unreadOnlyChanged(bool status)
+{
+    this->feedEntryListModel->showOnlyUnread(status);
 }
 
 void CxReader::feedChanged(QItemSelection selected, QItemSelection deselected)
@@ -32,6 +38,8 @@ void CxReader::feedChanged(QItemSelection selected, QItemSelection deselected)
     this->feedEntryListModel = new FeedEntryListModel(this->config, id, this);
     this->ui->feedEntryList->setModel(this->feedEntryListModel);
     connect(this->ui->feedEntryList->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), SLOT(feedEntryChanged(QItemSelection, QItemSelection)));
+    if(this->ui->unreadOnly->isChecked())
+        this->feedEntryListModel->showOnlyUnread(true);
 
     if(old != NULL)
         delete old;
