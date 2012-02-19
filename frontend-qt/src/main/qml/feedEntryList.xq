@@ -3,5 +3,5 @@ declare namespace b = "http://beefochu.dyndns.org/atom-cxReader-extensions";
 
 <entries> {
   for $x in doc($file)/a:feed/a:entry
-  return <entry title="{$x/a:title/text()}" summary="{$x/a:summary/text()}" id="{$x/b:cxReader/b:id}" />
+  return <entry title="{$x/a:title/text()}" summary="{$x/a:summary/text()}" id="{$x/b:cxReader/b:id}" read="{$x/b:cxReader/b:read}"/>
 } </entries>

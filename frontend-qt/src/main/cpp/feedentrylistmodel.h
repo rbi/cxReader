@@ -11,6 +11,7 @@ typedef struct
     QString title;
     QString summary;
     QString id;
+    bool read;
 } FeedEntry;
 
 class FeedEntryListModel  : public QAbstractListModel, public QAbstractXmlReceiver
@@ -25,6 +26,8 @@ public:
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+    Qt::ItemFlags flags(const QModelIndex & index) const;
+    bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
     //overrides for QAbstractXmlReceiver
     void attribute(const QXmlName &name, const QStringRef &value);
     void endElement();
