@@ -39,7 +39,7 @@ void FeedEntryListModel::showOnlyUnread(bool unreadOnly)
 
 void FeedEntryListModel::initFeedEntryList()
 {
-    QFile queryFile(":/cxReader/qml/feedEntryList.xq");
+    QFile queryFile(":/cxReader/xquery/feedEntryList.xq");
     queryFile.open(QIODevice::ReadOnly);
 
     QXmlQuery query;

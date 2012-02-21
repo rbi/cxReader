@@ -35,7 +35,7 @@ QVariant FeedListModel::headerData(int section, Qt::Orientation orientation, int
 
 void FeedListModel::initFeedList()
 {
-    QFile queryFile(":/cxReader/qml/feedList.xq");
+    QFile queryFile(":/cxReader/xquery/feedList.xq");
     queryFile.open(QIODevice::ReadOnly);
 
     QXmlQuery query;
