@@ -12,11 +12,9 @@ import org.dyndns.beefochu.cxreader.backend.Reader;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException;
 import org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException;
 
-//TODO reference this in composite component when CDI in UIComponent is working.
 @Named
 @RequestScoped
-public class AddFeedController{
-	private String feedName;
+public class AddFeedController {
 	private URL url;
 
 	@Inject
@@ -40,6 +38,7 @@ public class AddFeedController{
 					FacesMessage.SEVERITY_ERROR, "Already bookmarked",
 					"This feed is already in the list of bookmarked feeds."));
 		}
+		this.url = null;
 		feedList.refreshBookmarkList();
 	}
 
@@ -49,13 +48,5 @@ public class AddFeedController{
 
 	public void setUrl(URL url) {
 		this.url = url;
-	}
-
-	public String getFeedName() {
-		return feedName;
-	}
-
-	public void setFeedName(String feedName) {
-		this.feedName = feedName;
 	}
 }

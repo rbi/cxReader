@@ -2,14 +2,62 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:r="http://java.sun.com/jsf/composite/components/rssReader">
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>cxReader</title>
 </h:head>
 <h:body>
 	<!-- <h:commandButton id="showAddFeedDialog" value="add feed"/> -->
-	<r:addFeedDialog id="addFeedDialog" />
-	<r:feedList id="feedList" />
+	<h:form id="newFeedForm">
+		<h:outputLabel id="url-label" value="Feed URL: " for="url" />
+		<h:inputText id="url" value="#{addFeedController.url}" required="true">
+			<f:converter converterId="org.beefochu.UrlConverter" />
+		</h:inputText>
+		<h:message for="url" />
+
+		<h:commandButton id="addFeedButton" type="submit" value="add"
+			action="#{addFeedController.add}" />
+	</h:form>
+
+	<!-- feed list -->
+	<h:form id="feedListForm">
+		<h:dataTable id="feedList" value="#{feedListController.bookmarks}"
+			var="bookmark">
+			<h:column>
+				<h:commandLink value="#{bookmark.feed.name}"
+					action="#{feedEntryListController.changeFeed(bookmark)}">
+					<f:ajax render=":feedEntryForm :entryInfo" />
+				</h:commandLink>
+			</h:column>
+			<h:column>
+				<h:commandButton id="deleteButton"
+					action="#{feedListController.delete(bookmark)}" value="x">
+					<f:ajax render="@form :feedEntryForm :entryInfo" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+	<!-- entry list -->
+	<h:form id="feedEntryForm">
+		<h:dataTable id="feedEntryList"
+			value="#{feedEntryListController.entries}" var="entry">
+			<h:column>
+				<h:commandLink value="#{entry.feedEntry.title}"
+					action="#{entryInfoController.changeEntry(entry)}">
+					<f:ajax render=":entryInfo" />
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+	<!-- entry info -->
+	<h:panelGroup id="entryInfo" layout="block" >
+		<h:outputText value="${entryInfoController.entry.feedEntry.title}" />
+		<h:outputText value="${entryInfoController.entry.feedEntry.summary}" />
+		<h:outputLink value="${entryInfoController.entry.feedEntry.url}" target="_blank" rendered="${entryInfoController.rendered}" >
+			<h:outputText value="Link" />
+		</h:outputLink>
+	</h:panelGroup>
 </h:body>
 </html>

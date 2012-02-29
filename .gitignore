@@ -4,6 +4,7 @@ catalog.xml
 derby.log
 target/
 faces-config.NavData
+faces-config.pageflow
 nb-configuration.xml
 .settings/
 .project

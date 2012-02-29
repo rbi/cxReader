@@ -16,29 +16,34 @@ import org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation;
 public class FeedListController implements Serializable {
 
 	private static final long serialVersionUID = -1216869584943556445L;
-    private List<FeedUserRelation> bookmarks;
+
+	@Inject
+	Reader reader;
 	
 	@Inject
-    Reader reader;
+	FeedEntryListController entryList;
 
-    public FeedListController() {
-    }
+	private List<FeedUserRelation> bookmarks;
 
-    @PostConstruct
-    public void init() {
-    	refreshBookmarkList();
-    }
+	public FeedListController() {
+	}
 
-    public List<FeedUserRelation> getBookmarks() {
-        return bookmarks;
-    }
-    
-    public void delete(FeedUserRelation bookmark) {
-    	reader.removeBookmarkedFeed(bookmark);
-    	refreshBookmarkList();
-    }
-    
-    public void refreshBookmarkList() {
-    	this.bookmarks = reader.getFeedList();
-    }
+	@PostConstruct
+	public void init() {
+		refreshBookmarkList();
+	}
+
+	public List<FeedUserRelation> getBookmarks() {
+		return bookmarks;
+	}
+
+	public void delete(FeedUserRelation bookmark) {
+		entryList.changeFeed(null);
+		reader.removeBookmarkedFeed(bookmark);
+		refreshBookmarkList();
+	}
+
+	public void refreshBookmarkList() {
+		this.bookmarks = reader.getFeedList();
+	}
 }
