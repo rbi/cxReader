@@ -9,7 +9,7 @@ import javax.security.auth.login.AppConfigurationEntry.LoginModuleControlFlag;
 import com.sun.appserv.security.ProgrammaticLogin;
 
 public class LoginHelper {
-	private static final String USER_NAME = "testUser";
+	public static final String USER_NAME = "testUser";
 	private static final Configuration config = new Configuration() {
 		@Override
 		public AppConfigurationEntry[] getAppConfigurationEntry(String name) {

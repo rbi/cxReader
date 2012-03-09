@@ -34,7 +34,7 @@ public class IndexIT {
     }
     
     private WebTester browser;
-    
+      
     @SuppressWarnings("rawtypes")
 	@Deployment
     public static Archive deploy() {
@@ -45,6 +45,7 @@ public class IndexIT {
     public void setUp() throws NamingException {
     	LoginHelper.login();
         browser = new WebTester();
+        browser.getTestContext().setAuthorization(LoginHelper.USER_NAME, "some pw");
         browser.setBaseUrl(TestWar.getUrl());
         browser.beginAt("/");
         ((HtmlUnitTestingEngineImpl) browser.getTestingEngine()).getWebClient().setAjaxController(new NicelyResynchronizingAjaxController());
