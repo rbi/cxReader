@@ -11,9 +11,17 @@
 		<module>backend</module>
 		<module>connector-rest</module>
 		<module>frontend-web</module>
-		<module>frontend-qt</module>
 		<module>assembly</module>
 	</modules>
+
+	<profiles>
+		<profile>
+      		<id>frontend-qt</id>
+			<modules>
+				<module>frontend-qt</module>
+			</modules>
+		</profile>
+	</profiles>
 
 	<repositories>
 		<repository>
