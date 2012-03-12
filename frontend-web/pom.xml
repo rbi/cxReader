@@ -27,6 +27,13 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<!-- needed by eclipse which can't handle ejb-client -->
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>backend</artifactId>
+			<type>ejb</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
