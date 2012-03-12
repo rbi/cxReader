@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -27,8 +29,8 @@ import org.dyndns.beefochu.cxreader.backend.services.UserService;
 @Named
 @Stateless
 @Local(Reader.class)
-// @DeclareRoles("users")
-// @RolesAllowed("users")
+@DeclareRoles("users")
+@RolesAllowed("users")
 public class ReaderFacade implements Reader {
 
 	@PersistenceContext

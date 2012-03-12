@@ -5,7 +5,7 @@
 	<container qualifier="glassfish" default="true">
 		<configuration>
 			<property name="sunResourcesXml">src/test/resources/sun-resources.xml</property>
-			<!-- <property name="instanceRoot">src/test/resources/domain1</property>-->
+            <property name="configurationXml">src/test/resources/domain.xml</property>
 			<property name="bindHttpPort">12345</property>
 		</configuration>
 	</container>
