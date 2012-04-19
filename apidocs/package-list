@@ -1,7 +1,4 @@
-org.dyndns.beefochu.cxreader.backend
-org.dyndns.beefochu.cxreader.backend.config
-org.dyndns.beefochu.cxreader.backend.domain
-org.dyndns.beefochu.cxreader.backend.ejb
-org.dyndns.beefochu.cxreader.backend.exceptions
-org.dyndns.beefochu.cxreader.backend.services
-org.dyndns.beefochu.cxreader.backend.services.parsers
+org.dyndns.beefochu.cxreader.connector.rest
+org.dyndns.beefochu.cxreader.connector.rest.config
+org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom
+org.dyndns.beefochu.cxreader.connector.rest.jaxb.opml
