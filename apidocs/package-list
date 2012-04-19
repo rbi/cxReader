@@ -5,10 +5,3 @@ org.dyndns.beefochu.cxreader.backend.ejb
 org.dyndns.beefochu.cxreader.backend.exceptions
 org.dyndns.beefochu.cxreader.backend.services
 org.dyndns.beefochu.cxreader.backend.services.parsers
-org.dyndns.beefochu.cxreader.connector.rest
-org.dyndns.beefochu.cxreader.connector.rest.config
-org.dyndns.beefochu.cxreader.connector.rest.jaxb.atom
-org.dyndns.beefochu.cxreader.connector.rest.jaxb.opml
-org.dyndns.beefochu.cxreader.frontend.web.config
-org.dyndns.beefochu.cxreader.frontend.web.controller
-org.dyndns.beefochu.cxreader.frontend.web.converter

@@ -2,5 +2,3 @@ org.dyndns.beefochu.cxreader.backend.ejb
 org.dyndns.beefochu.cxreader.backend.services
 org.dyndns.beefochu.cxreader.backend.services.parsers
 org.dyndns.beefochu.cxreader.backend.testutil
-org.dyndns.beefochu.cxreader.frontend.web
-org.dyndns.beefochu.cxreader.frontend.web.testutil

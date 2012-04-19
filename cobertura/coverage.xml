@@ -1,0 +1,1205 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+
+<coverage line-rate="0.7873134328358209" branch-rate="0.8181818181818182" lines-covered="211" lines-valid="268" branches-covered="54" branches-valid="66" complexity="1.904109589041096" version="1.9.4.1" timestamp="1333732579990">
+	<sources>
+		<source>/home/raik/Programmieren/Programme/cx/cxReader/backend/src/main/java</source>
+		<source>--source</source>
+	</sources>
+	<packages>
+		<package name="org.dyndns.beefochu.cxreader.backend" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+			<classes>
+				<class name="org.dyndns.beefochu.cxreader.backend.Reader" filename="org/dyndns/beefochu/cxreader/backend/Reader.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.dyndns.beefochu.cxreader.backend.config" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+			<classes>
+				<class name="org.dyndns.beefochu.cxreader.backend.config.DependencyInjection" filename="org/dyndns/beefochu/cxreader/backend/config/DependencyInjection.java" line-rate="0.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="6" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getSyndFeedInput" signature="()Lcom/sun/syndication/io/SyndFeedInput;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="10" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="6" hits="0" branch="false"/>
+						<line number="10" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.dyndns.beefochu.cxreader.backend.domain" line-rate="0.6551724137931034" branch-rate="0.6666666666666666" complexity="1.5277777777777777">
+			<classes>
+				<class name="org.dyndns.beefochu.cxreader.backend.domain.Feed" filename="org/dyndns/beefochu/cxreader/backend/domain/Feed.java" line-rate="0.68" branch-rate="0.6" complexity="1.9">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="33" hits="17" branch="false"/>
+								<line number="34" hits="17" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/net/URL;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="28" hits="19" branch="false"/>
+								<line number="36" hits="2" branch="false"/>
+								<line number="37" hits="2" branch="false"/>
+								<line number="38" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="equals" signature="(Ljava/lang/Object;)Z" line-rate="0.625" branch-rate="0.6">
+							<lines>
+								<line number="74" hits="8" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="75" hits="0" branch="false"/>
+								<line number="77" hits="8" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="78" hits="0" branch="false"/>
+								<line number="80" hits="8" branch="false"/>
+								<line number="81" hits="8" branch="true" condition-coverage="66% (4/6)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+										<condition number="1" type="jump" coverage="50%"/>
+										<condition number="2" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="82" hits="0" branch="false"/>
+								<line number="84" hits="8" branch="false"/>
+							</lines>
+						</method>
+						<method name="getEntries" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="66" hits="3" branch="false"/>
+							</lines>
+						</method>
+						<method name="getId" signature="()J" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="41" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getName" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="49" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getUrl" signature="()Ljava/net/URL;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="58" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="hashCode" signature="()I" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="89" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setName" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="45" hits="1" branch="false"/>
+								<line number="46" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="setUrl" signature="(Ljava/net/URL;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="53" hits="9" branch="false"/>
+								<line number="54" hits="9" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="28" hits="19" branch="false"/>
+						<line number="33" hits="17" branch="false"/>
+						<line number="34" hits="17" branch="false"/>
+						<line number="36" hits="2" branch="false"/>
+						<line number="37" hits="2" branch="false"/>
+						<line number="38" hits="2" branch="false"/>
+						<line number="41" hits="0" branch="false"/>
+						<line number="45" hits="1" branch="false"/>
+						<line number="46" hits="1" branch="false"/>
+						<line number="49" hits="1" branch="false"/>
+						<line number="53" hits="9" branch="false"/>
+						<line number="54" hits="9" branch="false"/>
+						<line number="58" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+						<line number="66" hits="3" branch="false"/>
+						<line number="74" hits="8" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="75" hits="0" branch="false"/>
+						<line number="77" hits="8" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="78" hits="0" branch="false"/>
+						<line number="80" hits="8" branch="false"/>
+						<line number="81" hits="8" branch="true" condition-coverage="66% (4/6)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+								<condition number="1" type="jump" coverage="50%"/>
+								<condition number="2" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="82" hits="0" branch="false"/>
+						<line number="84" hits="8" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.domain.FeedEntry" filename="org/dyndns/beefochu/cxreader/backend/domain/FeedEntry.java" line-rate="0.9411764705882353" branch-rate="1.0" complexity="1.2222222222222223">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="19" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getId" signature="()J" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="78" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getLastUpdate" signature="()Ljava/util/Date;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="70" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getSummary" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getTitle" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="45" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getUrl" signature="()Ljava/net/URL;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="54" hits="2" branch="false"/>
+								<line number="55" hits="1" branch="false"/>
+								<line number="57" hits="1" branch="false"/>
+								<line number="58" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="setLastUpdate" signature="(Ljava/util/Date;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="74" hits="2" branch="false"/>
+								<line number="75" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="setSummary" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="41" hits="1" branch="false"/>
+								<line number="42" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="setTitle" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="49" hits="2" branch="false"/>
+								<line number="50" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="setUrl" signature="(Ljava/net/URL;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="63" hits="1" branch="false"/>
+								<line number="64" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="19" hits="4" branch="false"/>
+						<line number="37" hits="2" branch="false"/>
+						<line number="41" hits="1" branch="false"/>
+						<line number="42" hits="1" branch="false"/>
+						<line number="45" hits="2" branch="false"/>
+						<line number="49" hits="2" branch="false"/>
+						<line number="50" hits="2" branch="false"/>
+						<line number="54" hits="2" branch="false"/>
+						<line number="55" hits="1" branch="false"/>
+						<line number="57" hits="1" branch="false"/>
+						<line number="58" hits="1" branch="false"/>
+						<line number="63" hits="1" branch="false"/>
+						<line number="64" hits="1" branch="false"/>
+						<line number="70" hits="2" branch="false"/>
+						<line number="74" hits="2" branch="false"/>
+						<line number="75" hits="2" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.domain.FeedEntryUserRelation" filename="org/dyndns/beefochu/cxreader/backend/domain/FeedEntryUserRelation.java" line-rate="0.5" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="36" hits="0" branch="false"/>
+								<line number="38" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/FeedEntry;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="40" hits="4" branch="false"/>
+								<line number="41" hits="4" branch="false"/>
+								<line number="42" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="getFeedEntry" signature="()Lorg/dyndns/beefochu/cxreader/backend/domain/FeedEntry;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="49" hits="6" branch="false"/>
+							</lines>
+						</method>
+						<method name="getId" signature="()J" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="45" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="isRead" signature="()Z" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="57" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setRead" signature="(Z)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="61" hits="4" branch="false"/>
+								<line number="62" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="setUserFeed" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="36" hits="0" branch="false"/>
+						<line number="38" hits="0" branch="false"/>
+						<line number="40" hits="4" branch="false"/>
+						<line number="41" hits="4" branch="false"/>
+						<line number="42" hits="4" branch="false"/>
+						<line number="45" hits="0" branch="false"/>
+						<line number="49" hits="6" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
+						<line number="61" hits="4" branch="false"/>
+						<line number="62" hits="4" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.domain.FeedUserRelation" filename="org/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation.java" line-rate="0.56" branch-rate="0.75" complexity="2.3333333333333335">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="44" hits="0" branch="false"/>
+								<line number="46" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/ReaderUser;Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="39" hits="8" branch="false"/>
+								<line number="48" hits="8" branch="false"/>
+								<line number="49" hits="8" branch="false"/>
+								<line number="50" hits="8" branch="false"/>
+								<line number="51" hits="8" branch="false"/>
+							</lines>
+						</method>
+						<method name="addFeedEntryUserRelation" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/FeedEntryUserRelation;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="58" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+								<line number="60" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="equals" signature="(Ljava/lang/Object;)Z" line-rate="0.8" branch-rate="0.75">
+							<lines>
+								<line number="64" hits="12" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="65" hits="6" branch="false"/>
+								<line number="66" hits="6" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="67" hits="0" branch="false"/>
+								<line number="68" hits="6" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="69" hits="0" branch="false"/>
+								<line number="70" hits="6" branch="false"/>
+								<line number="71" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="72" hits="5" branch="false"/>
+								<line number="73" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getFeed" signature="()Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="54" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="hashCode" signature="()I" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="78" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
+								<line number="81" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="39" hits="8" branch="false"/>
+						<line number="44" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="48" hits="8" branch="false"/>
+						<line number="49" hits="8" branch="false"/>
+						<line number="50" hits="8" branch="false"/>
+						<line number="51" hits="8" branch="false"/>
+						<line number="54" hits="2" branch="false"/>
+						<line number="58" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+						<line number="60" hits="0" branch="false"/>
+						<line number="64" hits="12" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="65" hits="6" branch="false"/>
+						<line number="66" hits="6" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="67" hits="0" branch="false"/>
+						<line number="68" hits="6" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="69" hits="0" branch="false"/>
+						<line number="70" hits="6" branch="false"/>
+						<line number="71" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="72" hits="5" branch="false"/>
+						<line number="73" hits="1" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="false"/>
+						<line number="81" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.domain.ReaderUser" filename="org/dyndns/beefochu/cxreader/backend/domain/ReaderUser.java" line-rate="0.5" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="30" hits="0" branch="false"/>
+								<line number="31" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="27" hits="1" branch="false"/>
+								<line number="33" hits="1" branch="false"/>
+								<line number="34" hits="1" branch="false"/>
+								<line number="35" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="getFeeds" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="38" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="42" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="27" hits="1" branch="false"/>
+						<line number="30" hits="0" branch="false"/>
+						<line number="31" hits="0" branch="false"/>
+						<line number="33" hits="1" branch="false"/>
+						<line number="34" hits="1" branch="false"/>
+						<line number="35" hits="1" branch="false"/>
+						<line number="38" hits="0" branch="false"/>
+						<line number="42" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.dyndns.beefochu.cxreader.backend.ejb" line-rate="0.0" branch-rate="0.0" complexity="1.4285714285714286">
+			<classes>
+				<class name="org.dyndns.beefochu.cxreader.backend.ejb.ReaderFacade" filename="org/dyndns/beefochu/cxreader/backend/ejb/ReaderFacade.java" line-rate="0.0" branch-rate="0.0" complexity="1.4285714285714286">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="34" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="bookmarkFeed" signature="(Ljava/net/URL;)Lorg/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="55" hits="0" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="60" hits="0" branch="false"/>
+								<line number="64" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getEntries" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation;IIZ)Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="78" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getEntries" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation;Ljava/util/Date;)Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="84" hits="0" branch="false"/>
+								<line number="87" hits="0" branch="false"/>
+								<line number="88" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getFeedList" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="49" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getUserName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="98" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="removeBookmarkedFeed" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation;)V" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="69" hits="0" branch="false"/>
+								<line number="71" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="72" hits="0" branch="false"/>
+								<line number="73" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="setReadStatus" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/FeedEntryUserRelation;Z)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="94" hits="0" branch="false"/>
+								<line number="95" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="34" hits="0" branch="false"/>
+						<line number="49" hits="0" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="60" hits="0" branch="false"/>
+						<line number="64" hits="0" branch="false"/>
+						<line number="69" hits="0" branch="false"/>
+						<line number="71" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="72" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="78" hits="0" branch="false"/>
+						<line number="84" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="false"/>
+						<line number="88" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+						<line number="94" hits="0" branch="false"/>
+						<line number="95" hits="0" branch="false"/>
+						<line number="98" hits="0" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.dyndns.beefochu.cxreader.backend.exceptions" line-rate="0.7777777777777778" branch-rate="1.0" complexity="1.0">
+			<classes>
+				<class name="org.dyndns.beefochu.cxreader.backend.exceptions.FeedAlreadyInListException" filename="org/dyndns/beefochu/cxreader/backend/exceptions/FeedAlreadyInListException.java" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="3" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="3" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.exceptions.FeedUrlInvalidException" filename="org/dyndns/beefochu/cxreader/backend/exceptions/FeedUrlInvalidException.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="6" hits="1" branch="false"/>
+								<line number="8" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/Throwable;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="11" hits="3" branch="false"/>
+								<line number="12" hits="3" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="6" hits="1" branch="false"/>
+						<line number="8" hits="1" branch="false"/>
+						<line number="11" hits="3" branch="false"/>
+						<line number="12" hits="3" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.exceptions.ParsingException" filename="org/dyndns/beefochu/cxreader/backend/exceptions/ParsingException.java" line-rate="0.5" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="6" hits="0" branch="false"/>
+								<line number="8" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/Exception;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="11" hits="3" branch="false"/>
+								<line number="12" hits="3" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="6" hits="0" branch="false"/>
+						<line number="8" hits="0" branch="false"/>
+						<line number="11" hits="3" branch="false"/>
+						<line number="12" hits="3" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.dyndns.beefochu.cxreader.backend.services" line-rate="0.9658119658119658" branch-rate="0.9473684210526315" complexity="4.090909090909091">
+			<classes>
+				<class name="org.dyndns.beefochu.cxreader.backend.services.FeedService" filename="org/dyndns/beefochu/cxreader/backend/services/FeedService.java" line-rate="0.9705882352941176" branch-rate="1.0" complexity="5.2">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="22" hits="9" branch="false"/>
+								<line number="24" hits="9" branch="false"/>
+							</lines>
+						</method>
+						<method name="findFeed" signature="(Ljava/net/URL;)Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="117" hits="9" branch="false"/>
+								<line number="118" hits="9" branch="false"/>
+								<line number="120" hits="9" branch="false"/>
+							</lines>
+						</method>
+						<method name="findOrCreate" signature="(Ljava/net/URL;)Lorg/dyndns/beefochu/cxreader/backend/services/FeedService$FindOrCreateReturn;" line-rate="0.9411764705882353" branch-rate="1.0">
+							<lines>
+								<line number="48" hits="7" branch="false"/>
+								<line number="49" hits="7" branch="false"/>
+								<line number="50" hits="7" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="51" hits="1" branch="false"/>
+								<line number="52" hits="1" branch="false"/>
+								<line number="53" hits="1" branch="false"/>
+								<line number="56" hits="6" branch="false"/>
+								<line number="58" hits="6" branch="false"/>
+								<line number="59" hits="6" branch="false"/>
+								<line number="61" hits="6" branch="false"/>
+								<line number="63" hits="4" branch="false"/>
+								<line number="64" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="65" hits="1" branch="false"/>
+								<line number="66" hits="1" branch="false"/>
+								<line number="68" hits="3" branch="false"/>
+								<line number="69" hits="2" branch="false"/>
+								<line number="70" hits="2" branch="false"/>
+								<line number="71" hits="3" branch="false"/>
+								<line number="73" hits="3" branch="false"/>
+								<line number="76" hits="3" branch="false"/>
+								<line number="77" hits="1" branch="false"/>
+								<line number="78" hits="1" branch="false"/>
+								<line number="80" hits="1" branch="false"/>
+								<line number="81" hits="3" branch="false"/>
+								<line number="82" hits="0" branch="false"/>
+								<line number="83" hits="0" branch="false"/>
+								<line number="84" hits="3" branch="false"/>
+								<line number="87" hits="2" branch="false"/>
+								<line number="88" hits="2" branch="false"/>
+								<line number="89" hits="2" branch="false"/>
+								<line number="91" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="92" hits="1" branch="false"/>
+								<line number="94" hits="2" branch="false"/>
+								<line number="96" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="getHandler" signature="(Ljava/io/InputStream;)Lorg/dyndns/beefochu/cxreader/backend/services/parsers/FeedParser;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="124" hits="4" branch="false"/>
+								<line number="125" hits="9" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="126" hits="8" branch="false"/>
+								<line number="127" hits="8" branch="false"/>
+								<line number="128" hits="8" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="129" hits="3" branch="false"/>
+								<line number="131" hits="5" branch="false"/>
+								<line number="133" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="readStream" signature="(Ljava/net/URL;)Ljava/io/InputStream;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="144" hits="6" branch="false"/>
+								<line number="146" hits="6" branch="false"/>
+								<line number="147" hits="6" branch="false"/>
+								<line number="148" hits="5" branch="false"/>
+								<line number="150" hits="5" branch="false"/>
+								<line number="151" hits="2056" branch="true" condition-coverage="100% (4/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+										<condition number="1" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="152" hits="2051" branch="false"/>
+								<line number="153" hits="2051" branch="false"/>
+								<line number="154" hits="2051" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="155" hits="2047" branch="false"/>
+								<line number="158" hits="5" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="159" hits="1" branch="false"/>
+								<line number="160" hits="1" branch="false"/>
+								<line number="163" hits="4" branch="false"/>
+								<line number="164" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="removeIfOrphan" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="107" hits="2" branch="false"/>
+								<line number="108" hits="2" branch="false"/>
+								<line number="110" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="111" hits="1" branch="false"/>
+								<line number="113" hits="1" branch="false"/>
+								<line number="114" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="22" hits="9" branch="false"/>
+						<line number="24" hits="9" branch="false"/>
+						<line number="48" hits="7" branch="false"/>
+						<line number="49" hits="7" branch="false"/>
+						<line number="50" hits="7" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="51" hits="1" branch="false"/>
+						<line number="52" hits="1" branch="false"/>
+						<line number="53" hits="1" branch="false"/>
+						<line number="56" hits="6" branch="false"/>
+						<line number="58" hits="6" branch="false"/>
+						<line number="59" hits="6" branch="false"/>
+						<line number="61" hits="6" branch="false"/>
+						<line number="63" hits="4" branch="false"/>
+						<line number="64" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="65" hits="1" branch="false"/>
+						<line number="66" hits="1" branch="false"/>
+						<line number="68" hits="3" branch="false"/>
+						<line number="69" hits="2" branch="false"/>
+						<line number="70" hits="2" branch="false"/>
+						<line number="71" hits="3" branch="false"/>
+						<line number="73" hits="3" branch="false"/>
+						<line number="76" hits="3" branch="false"/>
+						<line number="77" hits="1" branch="false"/>
+						<line number="78" hits="1" branch="false"/>
+						<line number="80" hits="1" branch="false"/>
+						<line number="81" hits="3" branch="false"/>
+						<line number="82" hits="0" branch="false"/>
+						<line number="83" hits="0" branch="false"/>
+						<line number="84" hits="3" branch="false"/>
+						<line number="87" hits="2" branch="false"/>
+						<line number="88" hits="2" branch="false"/>
+						<line number="89" hits="2" branch="false"/>
+						<line number="91" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="92" hits="1" branch="false"/>
+						<line number="94" hits="2" branch="false"/>
+						<line number="96" hits="2" branch="false"/>
+						<line number="107" hits="2" branch="false"/>
+						<line number="108" hits="2" branch="false"/>
+						<line number="110" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="111" hits="1" branch="false"/>
+						<line number="113" hits="1" branch="false"/>
+						<line number="114" hits="1" branch="false"/>
+						<line number="117" hits="9" branch="false"/>
+						<line number="118" hits="9" branch="false"/>
+						<line number="120" hits="9" branch="false"/>
+						<line number="124" hits="4" branch="false"/>
+						<line number="125" hits="9" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="126" hits="8" branch="false"/>
+						<line number="127" hits="8" branch="false"/>
+						<line number="128" hits="8" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="129" hits="3" branch="false"/>
+						<line number="131" hits="5" branch="false"/>
+						<line number="133" hits="1" branch="false"/>
+						<line number="144" hits="6" branch="false"/>
+						<line number="146" hits="6" branch="false"/>
+						<line number="147" hits="6" branch="false"/>
+						<line number="148" hits="5" branch="false"/>
+						<line number="150" hits="5" branch="false"/>
+						<line number="151" hits="2056" branch="true" condition-coverage="100% (4/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+								<condition number="1" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="152" hits="2051" branch="false"/>
+						<line number="153" hits="2051" branch="false"/>
+						<line number="154" hits="2051" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="155" hits="2047" branch="false"/>
+						<line number="158" hits="5" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="159" hits="1" branch="false"/>
+						<line number="160" hits="1" branch="false"/>
+						<line number="163" hits="4" branch="false"/>
+						<line number="164" hits="4" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.services.FeedService$FindOrCreateReturn" filename="org/dyndns/beefochu/cxreader/backend/services/FeedService.java" line-rate="1.0" branch-rate="1.0" complexity="5.2">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="24" hits="7" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="24" hits="7" branch="false"/>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.services.UserService" filename="org/dyndns/beefochu/cxreader/backend/services/UserService.java" line-rate="0.9583333333333334" branch-rate="0.8888888888888888" complexity="3.1666666666666665">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="16" hits="7" branch="false"/>
+							</lines>
+						</method>
+						<method name="addFeed" signature="(Ljava/lang/String;Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;)Lorg/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation;" line-rate="0.9" branch-rate="0.75">
+							<lines>
+								<line number="28" hits="2" branch="false"/>
+								<line number="29" hits="2" branch="false"/>
+								<line number="31" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="32" hits="1" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="33" hits="1" branch="false"/>
+								<line number="35" hits="0" branch="false"/>
+								<line number="37" hits="1" branch="false"/>
+								<line number="38" hits="1" branch="false"/>
+								<line number="39" hits="1" branch="false"/>
+								<line number="40" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="createFeedEntryUserRelations" signature="(Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="83" hits="1" branch="false"/>
+								<line number="85" hits="1" branch="false"/>
+								<line number="86" hits="1" branch="false"/>
+								<line number="88" hits="1" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="89" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="90" hits="4" branch="false"/>
+								<line number="91" hits="4" branch="false"/>
+								<line number="92" hits="4" branch="false"/>
+								<line number="93" hits="4" branch="false"/>
+								<line number="94" hits="2" branch="false"/>
+								<line number="95" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="findOrCreateUser" signature="(Ljava/lang/String;)Lorg/dyndns/beefochu/cxreader/backend/domain/ReaderUser;" line-rate="0.8888888888888888" branch-rate="0.75">
+							<lines>
+								<line number="98" hits="6" branch="false"/>
+								<line number="99" hits="6" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="100" hits="5" branch="false"/>
+								<line number="103" hits="1" branch="false"/>
+								<line number="104" hits="1" branch="false"/>
+								<line number="106" hits="1" branch="false"/>
+								<line number="107" hits="1" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="108" hits="1" branch="false"/>
+								<line number="111" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="findUser" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="115" hits="7" branch="false"/>
+								<line number="117" hits="7" branch="false"/>
+								<line number="118" hits="7" branch="false"/>
+							</lines>
+						</method>
+						<method name="getFeedList" signature="(Ljava/lang/String;)Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="22" hits="4" branch="false"/>
+								<line number="23" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="removeBookmarkedFeed" signature="(Ljava/lang/String;Lorg/dyndns/beefochu/cxreader/backend/domain/FeedUserRelation;)Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="54" hits="2" branch="false"/>
+								<line number="56" hits="2" branch="false"/>
+								<line number="58" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="59" hits="4" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="60" hits="1" branch="false"/>
+								<line number="61" hits="1" branch="false"/>
+								<line number="63" hits="3" branch="false"/>
+								<line number="65" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="66" hits="1" branch="false"/>
+								<line number="68" hits="1" branch="false"/>
+								<line number="69" hits="1" branch="false"/>
+								<line number="71" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="16" hits="7" branch="false"/>
+						<line number="22" hits="4" branch="false"/>
+						<line number="23" hits="4" branch="false"/>
+						<line number="28" hits="2" branch="false"/>
+						<line number="29" hits="2" branch="false"/>
+						<line number="31" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="32" hits="1" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="33" hits="1" branch="false"/>
+						<line number="35" hits="0" branch="false"/>
+						<line number="37" hits="1" branch="false"/>
+						<line number="38" hits="1" branch="false"/>
+						<line number="39" hits="1" branch="false"/>
+						<line number="40" hits="1" branch="false"/>
+						<line number="54" hits="2" branch="false"/>
+						<line number="56" hits="2" branch="false"/>
+						<line number="58" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="59" hits="4" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="60" hits="1" branch="false"/>
+						<line number="61" hits="1" branch="false"/>
+						<line number="63" hits="3" branch="false"/>
+						<line number="65" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="66" hits="1" branch="false"/>
+						<line number="68" hits="1" branch="false"/>
+						<line number="69" hits="1" branch="false"/>
+						<line number="71" hits="1" branch="false"/>
+						<line number="83" hits="1" branch="false"/>
+						<line number="85" hits="1" branch="false"/>
+						<line number="86" hits="1" branch="false"/>
+						<line number="88" hits="1" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="89" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="90" hits="4" branch="false"/>
+						<line number="91" hits="4" branch="false"/>
+						<line number="92" hits="4" branch="false"/>
+						<line number="93" hits="4" branch="false"/>
+						<line number="94" hits="2" branch="false"/>
+						<line number="95" hits="1" branch="false"/>
+						<line number="98" hits="6" branch="false"/>
+						<line number="99" hits="6" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="100" hits="5" branch="false"/>
+						<line number="103" hits="1" branch="false"/>
+						<line number="104" hits="1" branch="false"/>
+						<line number="106" hits="1" branch="false"/>
+						<line number="107" hits="1" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="108" hits="1" branch="false"/>
+						<line number="111" hits="0" branch="false"/>
+						<line number="115" hits="7" branch="false"/>
+						<line number="117" hits="7" branch="false"/>
+						<line number="118" hits="7" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+		<package name="org.dyndns.beefochu.cxreader.backend.services.parsers" line-rate="1.0" branch-rate="1.0" complexity="2.25">
+			<classes>
+				<class name="org.dyndns.beefochu.cxreader.backend.services.parsers.FeedParser" filename="org/dyndns/beefochu/cxreader/backend/services/parsers/FeedParser.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="org.dyndns.beefochu.cxreader.backend.services.parsers.RomeParser" filename="org/dyndns/beefochu/cxreader/backend/services/parsers/RomeParser.java" line-rate="1.0" branch-rate="1.0" complexity="2.6666666666666665">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="25" hits="4" branch="false"/>
+								<line number="27" hits="4" branch="false"/>
+							</lines>
+						</method>
+						<method name="isFeedParsable" signature="(Ljava/io/InputStream;)Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="35" hits="3" branch="false"/>
+								<line number="36" hits="2" branch="false"/>
+								<line number="37" hits="2" branch="false"/>
+								<line number="38" hits="1" branch="false"/>
+								<line number="39" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="parse" signature="(Ljava/io/InputStream;)Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="44" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="parseFeed" signature="(Ljava/io/InputStream;)Lcom/sun/syndication/feed/synd/SyndFeed;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="48" hits="5" branch="false"/>
+								<line number="50" hits="5" branch="false"/>
+								<line number="51" hits="2" branch="false"/>
+								<line number="52" hits="2" branch="false"/>
+								<line number="53" hits="1" branch="false"/>
+								<line number="54" hits="1" branch="false"/>
+								<line number="55" hits="2" branch="false"/>
+								<line number="56" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="transform" signature="(Lcom/sun/syndication/feed/synd/SyndEntry;)Lorg/dyndns/beefochu/cxreader/backend/domain/FeedEntry;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="71" hits="2" branch="false"/>
+								<line number="73" hits="2" branch="false"/>
+								<line number="75" hits="2" branch="false"/>
+								<line number="76" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="77" hits="1" branch="false"/>
+								<line number="80" hits="2" branch="false"/>
+								<line number="81" hits="1" branch="false"/>
+								<line number="83" hits="1" branch="false"/>
+								<line number="86" hits="2" branch="false"/>
+								<line number="87" hits="2" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="88" hits="1" branch="false"/>
+								<line number="90" hits="1" branch="false"/>
+								<line number="92" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="transform" signature="(Lcom/sun/syndication/feed/synd/SyndFeed;)Lorg/dyndns/beefochu/cxreader/backend/domain/Feed;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="61" hits="1" branch="false"/>
+								<line number="62" hits="1" branch="false"/>
+								<line number="64" hits="1" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="65" hits="2" branch="false"/>
+								<line number="67" hits="1" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="25" hits="4" branch="false"/>
+						<line number="27" hits="4" branch="false"/>
+						<line number="35" hits="3" branch="false"/>
+						<line number="36" hits="2" branch="false"/>
+						<line number="37" hits="2" branch="false"/>
+						<line number="38" hits="1" branch="false"/>
+						<line number="39" hits="1" branch="false"/>
+						<line number="44" hits="2" branch="false"/>
+						<line number="48" hits="5" branch="false"/>
+						<line number="50" hits="5" branch="false"/>
+						<line number="51" hits="2" branch="false"/>
+						<line number="52" hits="2" branch="false"/>
+						<line number="53" hits="1" branch="false"/>
+						<line number="54" hits="1" branch="false"/>
+						<line number="55" hits="2" branch="false"/>
+						<line number="56" hits="2" branch="false"/>
+						<line number="61" hits="1" branch="false"/>
+						<line number="62" hits="1" branch="false"/>
+						<line number="64" hits="1" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="65" hits="2" branch="false"/>
+						<line number="67" hits="1" branch="false"/>
+						<line number="71" hits="2" branch="false"/>
+						<line number="73" hits="2" branch="false"/>
+						<line number="75" hits="2" branch="false"/>
+						<line number="76" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="77" hits="1" branch="false"/>
+						<line number="80" hits="2" branch="false"/>
+						<line number="81" hits="1" branch="false"/>
+						<line number="83" hits="1" branch="false"/>
+						<line number="86" hits="2" branch="false"/>
+						<line number="87" hits="2" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="88" hits="1" branch="false"/>
+						<line number="90" hits="1" branch="false"/>
+						<line number="92" hits="2" branch="false"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>
